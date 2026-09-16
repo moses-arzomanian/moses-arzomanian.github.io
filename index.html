@@ -8,14 +8,14 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --ink:#0C0C0C;
+  --ink:#142D47;
   --warm:#F7F5F2;
   --white:#FFFFFF;
-  --rust:#9B4D2E;
+  --rust:#E07A5F;
   --rust-light:#F5EDE9;
   --border:#E2DED9;
   --muted:#7A756F;
-  --navy:#0A1628;
+  --navy:#142D47;
 }
 html{scroll-behavior:smooth;}
 body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased;line-height:1.6;}
@@ -23,29 +23,40 @@ a{color:inherit;text-decoration:none;}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:normal;}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:52px;background:rgba(6,14,26,0.95);backdrop-filter:blur(10px);}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:rgba(255,255,255,0.75);letter-spacing:0.5px;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:52px;background:#3D5A80;backdrop-filter:blur(10px);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:rgba(255,255,255,0.9);letter-spacing:0.5px;}
 .nav-links{display:flex;gap:28px;}
-.nav-links a{font-size:12px;color:rgba(255,255,255,0.4);font-weight:500;letter-spacing:0.3px;transition:color 0.2s;}
-.nav-links a:hover{color:rgba(255,255,255,0.85);}
+.nav-links a{font-size:12px;color:rgba(255,255,255,0.8);font-weight:500;letter-spacing:0.3px;transition:color 0.2s;}
+.nav-links a:hover{color:white;}
 
 /* HERO */
-.hero{background:#0D1B2A;min-height:78vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:72px 72px 60px;gap:80px;}
+.hero{background:#142D47;min-height:78vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:72px 72px 60px;gap:80px;}
 .hero-left{display:flex;flex-direction:column;}
-.hero-eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#C8845A;font-weight:500;margin-bottom:20px;}
-.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,7vw,7rem);font-weight:300;color:#FFFFFF;line-height:0.92;letter-spacing:-2px;margin-bottom:28px;}
-.hero-name em{font-style:italic;color:rgba(255,255,255,0.28);}
-.hero-desc{font-size:15px;color:rgba(255,255,255,0.5);line-height:1.75;margin-bottom:32px;max-width:420px;}.hero-desc-titles{display:block;color:rgba(255,255,255,0.92);font-weight:500;font-size:16px;letter-spacing:0.1px;margin-bottom:10px;}
+.hero-eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#E07A5F;font-weight:500;margin-bottom:20px;}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4.5vw,4.8rem);font-weight:300;color:#FFFFFF;line-height:0.95;letter-spacing:-1px;margin-bottom:20px;}
+.hero-name em{font-style:italic;color:#FFFFFF;}
+.hero-desc-block{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
+.hero-desc{font-size:15px;color:rgba(255,255,255,0.8);line-height:1.75;margin-bottom:0;}
+.hero-desc-right .hero-desc{max-width:none;}
+.hero-desc-titles{display:block;color:rgba(255,255,255,0.92);font-weight:700;font-size:16px;letter-spacing:0.1px;margin-bottom:10px;}
+.hero-desc-row{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;margin-bottom:32px;}
+.hero-desc-left{border-right:1px solid rgba(255,255,255,0.1);padding-right:32px;}
+.hero-desc-right{}
 .hero-actions{display:flex;gap:12px;}
 .btn-hero{padding:12px 26px;font-size:12px;font-weight:600;letter-spacing:0.5px;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.75);transition:all 0.2s;cursor:pointer;background:transparent;}
 .btn-hero:hover{border-color:rgba(255,255,255,0.6);color:white;text-decoration:none;}
-.btn-hero-fill{background:#9B4D2E;border-color:#9B4D2E;color:white;}
-.btn-hero-fill:hover{background:#7D3D24;border-color:#7D3D24;}
+.btn-hero-fill{background:#E07A5F;border-color:#E07A5F;color:white;}
+.btn-hero-fill:hover{background:#C4614A;border-color:#C4614A;}
+.hero-services{margin-top:28px;margin-bottom:32px;display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,0.1);}
+.hero-offer-label{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#E07A5F;padding:14px 0 10px;}
+.hero-service{padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:5px;}
+.hero-service-title{font-size:16px;font-weight:600;color:white;letter-spacing:0.3px;}
+.hero-service-desc{font-size:13px;color:rgba(255,255,255,0.75);}
 .hero-right{border-left:1px solid rgba(255,255,255,0.1);padding-left:72px;}
 .hero-stat{padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
 .hero-stat:first-child{border-top:1px solid rgba(255,255,255,0.08);}
 .hero-stat-n{font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:300;color:#FFFFFF;line-height:1;margin-bottom:4px;}
-.hero-stat-l{font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:1.5px;text-transform:uppercase;}
+.hero-stat-l{font-size:11px;color:rgba(255,255,255,0.7);letter-spacing:1.5px;text-transform:uppercase;}
 
 /* ABOUT */
 .about{padding:96px 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
@@ -56,26 +67,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:normal;}
 .about-pull{font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;color:var(--muted);line-height:1.5;border-left:2px solid var(--rust);padding-left:24px;margin-top:36px;}
 
 /* TOOLS */
-.tools{background:var(--warm);padding:72px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.tools-title{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:48px;}
-.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);}
-.tool-cat-name{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--rust);margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border);}
-.tool-cat-desc{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5;}
-.tool-list{list-style:none;display:flex;flex-direction:column;gap:7px;}
-.tool-list li{font-size:13px;color:var(--ink);}
-.tools-grid > div{padding:28px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}.tools-grid > div:nth-child(3n){border-right:none;}.tools-grid > div:nth-last-child(-n+3){border-bottom:none;}
+.tools{background:var(--warm);padding:40px 48px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.tools-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;color:var(--ink);margin-bottom:24px;}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid #D4D0CB;}
+.tool-cat-name{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--rust);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #D4D0CB;}
+.tool-cat-desc{font-size:12px;color:#5A5651;margin-bottom:12px;line-height:1.55;}
+.tool-list{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.tool-list li{font-size:13px;color:#2A2724;font-weight:500;}
+.tools-grid > div{padding:24px;border-right:1px solid #D4D0CB;border-bottom:1px solid #D4D0CB;background:var(--white);}.tools-grid > div:nth-child(3n){border-right:none;}.tools-grid > div:nth-last-child(-n+3){border-bottom:none;}
 .tools-grid > div:last-child{border-right:none;}
 
 /* GALLERY */
-.gallery{padding:0;}
+.gallery{padding:0;border-bottom:1px solid var(--border);}
 .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:6px;}
 .g-item{overflow:hidden;aspect-ratio:4/3;}
 .g-item img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 0.3s;}
 .g-item:hover img{transform:scale(1.03);}
 
 /* PORTFOLIO */
-.portfolio{padding:96px 48px;}
-.portfolio-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:64px;border-bottom:1px solid var(--border);padding-bottom:24px;}
+.portfolio{padding:32px 48px 32px;}
+.portfolio-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:32px;border-bottom:1px solid var(--border);padding-bottom:20px;}
 .portfolio-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;}
 .portfolio-sub{font-size:13px;color:var(--muted);}
 .port-item{display:grid;grid-template-columns:64px 1fr 1fr;gap:0;border-bottom:1px solid var(--border);padding:40px 0;}
@@ -96,7 +107,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:normal;}
 .navio-card{border:1px solid rgba(255,255,255,0.09);border-radius:8px;overflow:hidden;}
 .navio-card-header{display:flex;align-items:center;justify-content:space-between;padding:15px 32px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.025);}
 .navio-card-label{font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--rust);}
-.navio-card-link{font-size:11px;font-weight:500;letter-spacing:0.3px;color:rgba(255,255,255,0.28);transition:color 0.2s;}
+.navio-card-link{font-size:11px;font-weight:500;letter-spacing:0.3px;color:rgba(255,255,255,0.85);transition:color 0.2s;}
 .navio-card-link:hover{color:var(--rust);}
 .navio-card-body{display:grid;grid-template-columns:1fr 42%;}
 .navio-left{display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,0.07);}
@@ -105,10 +116,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:normal;}
 .navio-logo-img{height:110px;width:auto;max-width:280px;border-radius:20px;object-fit:contain;margin-bottom:16px;}
 .navio-brand-link{font-size:11px;font-weight:500;letter-spacing:0.5px;color:var(--rust);text-decoration:none;margin-bottom:20px;transition:opacity 0.2s;}
 .navio-brand-link:hover{opacity:0.7;}
-.navio-tagline{font-size:12px;color:rgba(255,255,255,0.28);line-height:1.7;}
+.navio-tagline{font-size:12px;color:rgba(255,255,255,0.82);line-height:1.7;}
 .navio-text{padding:0 28px 36px;}
-.navio-text-lead{font-size:15px;color:rgba(255,255,255,0.62);line-height:1.85;margin-bottom:20px;font-weight:300;}
-.navio-text-body{font-size:13px;color:rgba(255,255,255,0.38);line-height:1.85;}
+.navio-text-lead{font-size:15px;color:rgba(255,255,255,0.85);line-height:1.85;margin-bottom:20px;font-weight:300;}
+.navio-text-body{font-size:13px;color:rgba(255,255,255,0.78);line-height:1.85;}
 .navio-media{padding:36px 32px;display:flex;flex-direction:column;justify-content:center;}
 .navio-video-frame{border-radius:10px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);}
 .navio-video{width:100%;display:block;background:#000;}
@@ -116,12 +127,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:normal;}
 .navio-card-footer{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,0.12);}
 .navio-pillar{padding:28px 32px;border-right:1px solid rgba(255,255,255,0.07);}
 .navio-pillar:last-child{border-right:none;}
-.pillar-label{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--rust);margin-bottom:10px;}
-.pillar-text{font-size:12px;color:rgba(255,255,255,0.32);line-height:1.6;}
+.pillar-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E07A5F;margin-bottom:6px;}
+.pillar-text{font-size:13px;color:rgba(255,255,255,0.72);line-height:1.65;}
 
 /* EXPERIENCE */
-.experience{padding:96px 48px;background:var(--warm);}
-.exp-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;margin-bottom:64px;}
+.experience{padding:32px 48px;background:var(--warm);}
+.exp-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;margin-bottom:32px;}
 .exp-row{display:grid;grid-template-columns:220px 1fr 260px;gap:0;padding:36px 0;border-top:1px solid var(--border);}
 .exp-row:last-child{border-bottom:1px solid var(--border);}
 .exp-meta{padding-right:40px;padding-top:4px;}
@@ -134,7 +145,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:normal;}
 .exp-points li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:1px;background:var(--border);}
 
 /* EDUCATION */
-.education{padding:72px 48px;display:flex;flex-direction:column;gap:0;}
+.education{padding:32px 48px;display:flex;flex-direction:column;gap:0;}
 .edu-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;margin-bottom:24px;}
 .edu-col{}
 .edu-col-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:0;border-bottom:1px solid var(--border);padding-bottom:10px;}
@@ -186,21 +197,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:normal;}
 .contact-icon-btn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid rgba(255,255,255,0.12);border-radius:50%;transition:all 0.2s;flex-shrink:0;}
 .contact-icon-btn:hover{border-color:var(--rust);background:rgba(155,77,46,0.15);}
 .contact-icon-btn svg{width:17px;height:17px;}
-.contact-loc-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:5px;}
-.contact-loc-value{font-size:12px;color:rgba(255,255,255,0.38);line-height:1.5;}
+.contact-loc-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:5px;}
+.contact-loc-value{font-size:12px;color:rgba(255,255,255,0.85);line-height:1.5;}
 .contact-right-col{padding-left:52px;}
 .contact-right-col h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,2.8vw,2.6rem);font-weight:300;color:white;line-height:1.1;margin-bottom:18px;}
-.contact-right-col h2 em{font-style:italic;color:rgba(255,255,255,0.28);}
-.contact-right-col p{font-size:14px;color:rgba(255,255,255,0.38);line-height:1.8;}
+.contact-right-col h2 em{font-style:italic;color:rgba(255,255,255,0.55);}
+.contact-right-col p{font-size:14px;color:rgba(255,255,255,0.82);line-height:1.8;}
 .logo-link{display:inline-flex;align-items:center;gap:0;color:rgba(255,255,255,0.75);}
 .logo-link:hover{color:white;opacity:0.8;}
 @media(max-width:768px){.contact-inner{grid-template-columns:1fr;gap:40px;}.contact-left-col{flex-direction:row;align-items:center;border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);padding-right:0;padding-bottom:32px;}.contact-right-col{padding-left:0;}}
 
 /* FOOTER */
-footer{background:#060E1A;padding:28px 48px;border-top:1px solid rgba(255,255,255,0.05);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;}
-.footer-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:300;color:rgba(255,255,255,0.3);letter-spacing:0.3px;}
-.footer-copy{font-size:11px;color:rgba(255,255,255,0.15);letter-spacing:1px;text-align:center;white-space:nowrap;}
-.footer-year{font-size:11px;color:rgba(255,255,255,0.15);text-align:right;letter-spacing:0.5px;}
+footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,255,0.1);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;}
+.footer-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:300;color:rgba(255,255,255,0.9);letter-spacing:0.3px;}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.8);letter-spacing:1px;text-align:center;white-space:nowrap;}
+.footer-year{font-size:11px;color:rgba(255,255,255,0.8);text-align:right;letter-spacing:0.5px;}
 @media(max-width:768px){footer{grid-template-columns:1fr;gap:6px;text-align:center;padding:20px 24px;}.footer-year{text-align:center;}}
 
 /* RESPONSIVE */
@@ -256,9 +267,26 @@ footer{background:#060E1A;padding:28px 48px;border-top:1px solid rgba(255,255,25
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-left">
-    <div class="hero-eyebrow">Learning &amp; Development · Montreal, Canada</div>
-    <div class="hero-name">Moses<br><em>Arzomanian</em></div>
-    <p class="hero-desc"><span class="hero-desc-titles">Educator &nbsp;·&nbsp; Learning &amp; Development Specialist<br>Co-Founder &amp; CEO of Navio</span>Thirteen years designing training that changes behavior — for organizations where getting it wrong actually costs something.</p>
+    <div class="hero-name"><em>Moses Arzomanian</em></div>
+    <div class="hero-desc-block">
+      <span class="hero-desc-titles">Co-Founder &amp; CEO of Navio &nbsp;·&nbsp; Learning &amp; Development Specialist &nbsp;·&nbsp; Educator</span>
+      <p class="hero-desc">Thirteen years designing training that changes behavior — for organizations where getting it wrong actually costs something.</p>
+    </div>
+    <div class="hero-services">
+      <div class="hero-offer-label">What I Offer</div>
+      <div class="hero-service">
+        <div class="hero-service-title">Create E-Learning Solutions</div>
+        <div class="hero-service-desc">Courses, assessments, and interactive content across multiple platforms</div>
+      </div>
+      <div class="hero-service">
+        <div class="hero-service-title">Create Organizational Solutions</div>
+        <div class="hero-service-desc">Guides, manuals, job aids, and structured learning documentation</div>
+      </div>
+      <div class="hero-service">
+        <div class="hero-service-title">Organize Leadership Camps</div>
+        <div class="hero-service-desc">Programs for kids, youth, and adult learners across Canada and internationally</div>
+      </div>
+    </div>
     <div class="hero-actions">
       <a href="#portfolio" class="btn-hero btn-hero-fill">View Portfolio</a>
       <a href="#contact" class="btn-hero">Get in Touch</a>
@@ -444,7 +472,7 @@ footer{background:#060E1A;padding:28px 48px;border-top:1px solid rgba(255,255,25
     </div>
   </div>
 
-  <div style="padding:48px 0;border-top:1px solid var(--border);text-align:center;">
+  <div style="padding:20px 0 0;border-top:1px solid var(--border);text-align:center;">
     <p style="font-size:18px;font-style:italic;font-weight:700;color:var(--muted);">Additional samples provided upon request.</p>
   </div>
 
@@ -612,6 +640,10 @@ footer{background:#060E1A;padding:28px 48px;border-top:1px solid rgba(255,255,25
       <div class="cert-title">Bachelor of Education</div>
       <div class="cert-meta"><span class="cert-issuer">Concordia University</span><span class="cert-date">2022–2026</span></div>
     </div>
+    <div class="cert-row">
+      <div class="cert-title">Certificate in Software Product Management</div>
+      <div class="cert-meta"><span class="cert-issuer">University of Alberta</span><span class="cert-date">2021</span></div>
+    </div>
   </div>
 
   <div class="cert-section">
@@ -626,10 +658,6 @@ footer{background:#060E1A;padding:28px 48px;border-top:1px solid rgba(255,255,25
       <div class="cert-row">
         <div class="cert-title">AI Evaluation &amp; Rubric Design</div>
         <div class="cert-meta"><span class="cert-issuer">micro1</span><span class="cert-date">2026</span></div>
-      </div>
-      <div class="cert-row">
-        <div class="cert-title">Software Product Management</div>
-        <div class="cert-meta"><span class="cert-issuer">University of Alberta</span><span class="cert-date">2021</span></div>
       </div>
     </div>
 
@@ -701,13 +729,13 @@ footer{background:#060E1A;padding:28px 48px;border-top:1px solid rgba(255,255,25
     <div class="contact-left-col">
       <div class="contact-icons-row">
         <a href="mailto:moses.arzomanian@gmail.com" class="contact-icon-btn" title="moses.arzomanian@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#C8845A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E07A5F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="4" width="20" height="16" rx="2"/>
             <path d="M2 7l10 7 10-7"/>
           </svg>
         </a>
         <a href="https://www.linkedin.com/in/moses-arzomanian" target="_blank" class="contact-icon-btn" title="linkedin.com/in/moses-arzomanian">
-          <svg viewBox="0 0 24 24" fill="#C8845A">
+          <svg viewBox="0 0 24 24" fill="#E07A5F">
             <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
             <circle cx="4" cy="4" r="2"/>
           </svg>
@@ -728,7 +756,7 @@ footer{background:#060E1A;padding:28px 48px;border-top:1px solid rgba(255,255,25
 <footer>
   <span class="footer-name">Moses Arzomanian</span>
   <span class="footer-copy">© 2026 · All rights reserved</span>
-  <span class="footer-year">Learning &amp; Development · Montreal</span>
+  <span class="footer-year">Learning &amp; Development · Montreal, Canada</span>
 </footer>
 
 
