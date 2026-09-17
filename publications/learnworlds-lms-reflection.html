@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Choosing the Right LMS — Moses Arzomanian</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#142D47;
+  --rust:#E07A5F;
+  --warm:#F7F5F2;
+  --page:#FAFAF8;
+  --white:#FFFFFF;
+  --border:#E2DED9;
+  --muted:#7A756F;
+  --navy:#3D5A80;
+  --text:#2C3B4A;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--page);-webkit-font-smoothing:antialiased;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+
+/* READING PROGRESS */
+#progress-bar{
+  position:fixed;top:52px;left:0;right:0;height:3px;
+  background:var(--border);z-index:99;
+}
+#progress-fill{
+  height:100%;width:0%;background:var(--rust);
+  transition:width 0.1s linear;
+}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:52px;background:#3D5A80;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:rgba(255,255,255,0.9);letter-spacing:0.5px;}
+.nav-back{font-size:12px;color:rgba(255,255,255,0.8);font-weight:500;letter-spacing:0.3px;display:flex;align-items:center;gap:6px;transition:color 0.2s;}
+.nav-back:hover{color:white;}
+.nav-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;}
+
+/* HERO */
+.article-hero{background:#142D47;padding:108px 80px 72px;}
+.article-hero-inner{}
+.article-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:24px;}
+.article-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,3.2vw,3.6rem);
+  font-weight:300;color:#FFFFFF;
+  line-height:1.0;letter-spacing:-1px;margin-bottom:28px;
+  text-wrap:balance;
+}
+.article-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.1rem,2vw,1.45rem);
+  font-weight:300;font-style:italic;
+  color:rgba(255,255,255,0.6);margin-bottom:40px;line-height:1.5;
+}
+/* SOURCE BADGE IN HERO */
+.article-source-badge{
+  display:inline-flex;align-items:baseline;gap:10px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.15);
+  border-left:3px solid var(--rust);
+  padding:10px 16px;
+  margin-bottom:28px;
+  flex-wrap:wrap;
+}
+.source-badge-label{
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--rust);white-space:nowrap;flex-shrink:0;
+}
+.source-badge-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:14px;font-style:italic;font-weight:400;
+  color:rgba(255,255,255,0.7);line-height:1.4;
+}
+
+.article-meta{display:flex;align-items:center;gap:0;flex-wrap:wrap;}
+.article-byline{font-size:13px;color:rgba(255,255,255,0.8);font-weight:500;}
+.meta-dot{color:rgba(255,255,255,0.25);margin:0 12px;font-size:12px;}
+.article-date{font-size:12px;color:rgba(255,255,255,0.45);}
+.article-readtime{font-size:12px;color:rgba(255,255,255,0.4);}
+
+/* LAYOUT */
+.article-wrap{
+  padding:64px 80px 96px;
+  display:grid;
+  grid-template-columns:1fr 240px;
+  gap:80px;
+  align-items:start;
+}
+
+/* SIDEBAR TOC */
+.toc{
+  position:sticky;top:80px;
+  padding:24px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:3px solid var(--rust);
+}
+.toc-label{
+  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--rust);margin-bottom:16px;display:block;
+}
+.toc a{
+  display:block;
+  font-size:12px;color:var(--muted);
+  padding:6px 0;
+  border-bottom:1px solid var(--border);
+  line-height:1.4;
+  transition:color 0.15s;
+}
+.toc a:last-child{border-bottom:none;}
+.toc a:hover{color:var(--ink);}
+.toc a.active{color:var(--rust);font-weight:500;}
+
+/* ARTICLE BODY */
+article{min-width:0;}
+
+/* INTRO (first 3 paragraphs before first h1) */
+.intro-p{
+  font-size:17.5px;
+  line-height:1.9;
+  color:var(--text);
+  margin-bottom:28px;
+}
+.intro-p:first-child::first-letter{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4.2rem;
+  font-weight:300;
+  color:var(--rust);
+  float:left;
+  line-height:0.8;
+  margin:6px 12px 0 0;
+}
+
+article p{
+  font-size:16.5px;
+  line-height:1.88;
+  color:var(--text);
+  margin-bottom:26px;
+}
+article p:last-child{margin-bottom:0;}
+
+/* SECTION HEADINGS */
+article h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.5rem,2.5vw,2rem);
+  font-weight:400;
+  color:var(--ink);
+  line-height:1.25;
+  margin:64px 0 24px;
+  position:relative;
+}
+article h1::before{
+  content:'';
+  display:block;
+  width:40px;
+  height:2px;
+  background:var(--rust);
+  margin-bottom:20px;
+  opacity:0.7;
+}
+
+strong{color:var(--ink);font-weight:600;}
+em{font-style:italic;}
+
+/* PULL QUOTES */
+.pullquote{
+  margin:40px -4px;
+  padding:32px 40px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:none;
+  border-right:none;
+  text-align:center;
+  position:relative;
+}
+.pullquote::before{
+  content:'\201C';
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;
+  color:var(--rust);
+  opacity:0.3;
+  position:absolute;
+  top:-10px;left:24px;
+  line-height:1;
+}
+.pullquote-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.25rem,2.2vw,1.6rem);
+  font-style:italic;
+  font-weight:400;
+  color:var(--ink);
+  line-height:1.55;
+  position:relative;
+  z-index:1;
+}
+
+/* SOURCE */
+.article-source{
+  margin-top:64px;
+  display:grid;
+  grid-template-columns:3px 1fr;
+  gap:0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:28px 0;
+}
+.article-source-bar{
+  background:var(--rust);
+  border-radius:2px;
+  margin-right:24px;
+}
+.article-source-content{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.article-source strong{
+  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--rust);white-space:nowrap;font-weight:700;flex-shrink:0;
+}
+.article-source-cite{
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;font-weight:400;font-style:italic;
+  color:var(--muted);line-height:1.4;
+}
+.article-source-cite a{
+  color:var(--ink);
+  text-decoration:underline;
+  text-decoration-color:var(--rust);
+  text-underline-offset:3px;
+  transition:color 0.15s;
+  font-style:italic;
+}
+.article-source-cite a:hover{color:var(--rust);}
+
+/* FOOTER */
+footer{background:#3D5A80;padding:24px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-name{font-family:'Cormorant Garamond',serif;font-size:15px;color:rgba(255,255,255,0.8);}
+.footer-back{font-size:12px;color:rgba(255,255,255,0.55);transition:color 0.2s;}
+.footer-back:hover{color:white;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .article-wrap{grid-template-columns:1fr;gap:0;}
+  .toc{display:none;}
+}
+@media(max-width:768px){
+  .nav-inner{padding:0 24px;}
+  .article-hero{padding:88px 24px 52px;}
+  .article-wrap{padding:40px 24px 64px;}
+  footer{padding:20px 24px;flex-direction:column;gap:8px;text-align:center;}
+  .pullquote{margin:32px 0;padding:24px 28px;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="https://moses-arzomanian.github.io/">Moses Arzomanian</a>
+    <a class="nav-back" href="https://moses-arzomanian.github.io/">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Portfolio
+    </a>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-eyebrow">Learning Design · EdTech · AI-Enabled Learning</div>
+    <h1 class="article-title">Choosing the Right LMS: My Reflections on LearnWorlds' <em>"The 5 Non-Negotiables When Choosing Your LMS"</em></h1>
+    <div class="article-meta">
+      <span class="article-byline">Moses Arzomanian</span>
+      <span class="meta-dot">·</span>
+      <span class="article-date">September 2026</span>
+      <span class="meta-dot">·</span>
+      <span class="article-readtime">12 min read</span>
+    </div>
+  </div>
+</header>
+
+<div class="article-wrap">
+
+  <article id="article-content">
+
+    <p class="intro-p">Choosing a Learning Management System can easily become a technical conversation. Features, integrations, dashboards, artificial intelligence, automation, pricing, and scalability can quickly dominate the discussion. After reading LearnWorlds' ebook, <em>The 5 Non-Negotiables When Choosing Your LMS</em>, however, I found myself thinking about the subject from another perspective. Choosing an LMS is not simply a technology decision; it is also a learning design decision.</p>
+
+    <p class="intro-p">That distinction is particularly important to me because I approach learning technology from more than one side. As a teacher, I experience platforms from the perspective of the person delivering learning, observing how learners respond, and adapting activities according to their needs. As a learning designer, I also think about structure, objectives, engagement, assessment, interaction, and the overall learner journey. Because of that, I tend to judge technology not simply by the number of features it offers, but by how effectively those features support the learning process.</p>
+
+    <p class="intro-p">The LearnWorlds ebook organizes its discussion around five major areas: the relationship between human expertise and AI, the combination of e-learning and business tools, scalability and flexibility, ease of setup and support, and access to advanced features at a reasonable cost. What interested me most was not simply the list of features presented throughout the ebook, but the larger question behind them: <strong>does the LMS make it easier to create meaningful learning experiences?</strong> From my perspective, that is where LMS evaluation should begin.</p>
+
+    <h1 id="s1">1. The Human Mind and AI: Technology Should Support Expertise</h1>
+
+    <p>The first section of the ebook focuses on artificial intelligence, but its message goes beyond simply arguing that an LMS should include AI features. LearnWorlds presents AI as an assistant to human expertise and discusses its use alongside instructional approaches such as Kolb's Experiential Learning Theory, Gagné's Nine Events of Instruction, and ADDIE. The idea is not that AI becomes the instructional designer, but that it can support the process of structuring, developing, and improving learning experiences.</p>
+
+    <p>This strongly reflects the way I use AI in my own work. I use it regularly to brainstorm ideas, organize course structures, explore different ways of presenting material, and solve technical problems. Sometimes I begin with a clear idea but need help organizing it into a more coherent learning experience. In other situations, I may take existing content, such as a PDF, and use AI-enabled tools to explore how that material might become more interactive, visual, or gamified. I also use AI when I already know what I want to create but need help with the technical side of bringing that idea to life.</p>
+
+    <div class="pullquote"><div class="pullquote-text">AI can help us move faster, while pedagogy tells us where we should be going.</div></div>
+
+    <p>For me, this is where AI becomes most valuable. It reduces the distance between an idea and its execution, but it should never remove the need for professional judgment. A learning designer still needs to make the important decisions: Who are the learners? What do they need to understand? What should they be able to do afterward? Which activity best supports that objective? What should be simplified? What needs more explanation? What kind of assessment is appropriate? These are not simply content-generation questions. They require context, experience, reflection, and human judgment.</p>
+
+    <p>One of my greatest concerns regarding AI in education is the temptation to use it instead of thinking. AI is designed to assist us, but if we allow it to replace reflection, expertise, or decision-making, we lose an important part of the learning design process. Human judgment must remain the foundation. The strongest use of AI, in my view, is not replacing the specialist but extending what the specialist can do. An AI-enabled LMS should help a learning designer explore ideas, overcome technical barriers, analyze information, and work more efficiently while still keeping the learning professional at the center of the process.</p>
+
+    <h1 id="s2">2. E-Learning Is About the Experience, Not Simply the Content</h1>
+
+    <p>One of the strongest ideas in the ebook is its emphasis on active learning. Uploading content into an LMS does not automatically create a learning experience. A PDF uploaded to a platform is still a PDF, a video uploaded to a platform is still a video, and a PowerPoint presentation placed inside an LMS does not suddenly become instructionally effective simply because it is online.</p>
+
+    <p>The more important question is what the learner is actually doing with that content. Can the learner interact with it, practise, make decisions, reflect, receive feedback, or apply the concept in another context? The ebook discusses interactive videos, quizzes, multimedia assignments, self-assessments, reflection activities, and different forms of content delivery. This is one of the areas that connects most closely with my own experience.</p>
+
+    <p>As both a teacher and learning designer, I use different formats depending on the learning objective. Sometimes an assignment is appropriate. Sometimes a video works better. In other situations, a game, Kahoot-style activity, discussion, scenario, or interactive experience can help learners approach the same concept differently. The objective should never be to make everything into a game or to add technology simply because it looks engaging. Technology should serve the learning objective.</p>
+
+    <div class="pullquote"><div class="pullquote-text">One of the most exciting possibilities of EdTech is its ability to close the gap between what we intended to communicate and what the learner actually understood.</div></div>
+
+    <p>That gap exists in almost every learning environment. A teacher or learning designer may believe that an idea was explained clearly, while the learner may have interpreted it very differently. Interactive technologies give us more opportunities to observe that difference, respond to it, and redesign the experience when necessary.</p>
+
+    <p>The LearnWorlds ebook also discusses branding, navigation, communication, and the overall environment surrounding a learning program. Learners do not experience content separately from the platform containing it. If the LMS is confusing, overly technical, poorly structured, or difficult to navigate, that becomes part of the learning experience as well.</p>
+
+    <p>This is one of the reasons simplicity matters so much to me. I have worked with platforms that may have had powerful capabilities but felt unnecessarily complicated. The technology seemed designed from the perspective of the system rather than from the perspective of the person actually using it. When that happens, both the learner and the specialist designing the learning experience lose time and energy.</p>
+
+    <p>A learning designer should be concentrating on objectives, activities, assessment, engagement, and learner progress rather than constantly fighting with the interface. At the same time, simplicity should not mean limitation. The ideal LMS, in my view, is simple enough to use but flexible enough to design with. It should reduce technical friction without reducing creative or instructional possibilities.</p>
+
+    <p>Another part of the ebook that stood out to me was its discussion of multimedia activities, blended learning, accessibility, self-assessment, and reflection. Assessment does not always need to mean a traditional test. Learners can demonstrate understanding through written work, video, audio, projects, reflection, discussion, or other formats depending on the objective. A strong learning environment should provide multiple ways to understand learning — and this is one of the areas where technology can be extremely useful when it is designed and used appropriately.</p>
+
+    <h1 id="s3">3. Scalability Is More Than Adding More Users</h1>
+
+    <p>The third major theme in the ebook is scalability and flexibility. Scalability is often discussed in technical terms, particularly in relation to the number of users a system can support. That is important, but scalability in learning is much broader than user capacity.</p>
+
+    <p>An organization may begin with one type of learning program and eventually develop several. A school, company, or training organization might expand into different audiences, languages, certification programs, learning paths, departments, regions, internal training, external education, or new forms of delivery. The technology needs to be capable of accommodating that evolution.</p>
+
+    <p>From my perspective, scalability therefore means asking whether the platform can continue supporting the organization when its learning needs change. What works for fifty learners may not work for five thousand. What works for one language may become difficult when an organization needs several. A simple course environment may eventually need certificates, personalized learning paths, different user groups, more sophisticated reporting, or a combination of synchronous and asynchronous learning.</p>
+
+    <div class="pullquote"><div class="pullquote-text">The balance is between current simplicity and future flexibility.</div></div>
+
+    <p>This is why context matters so much. I would absolutely choose a simpler LMS with ten excellent features over a system with one hundred features that I do not need if those ten capabilities match the learning context. But the opposite can also be true. An organization should not choose a platform that is so limited today that it becomes an obstacle tomorrow.</p>
+
+    <p>Another idea from the LearnWorlds ebook that I found important is the need to look at the company behind the technology, not only at the platform as it exists today. An LMS should work now, but the company developing it should also demonstrate that it is willing to evolve. Technology changes quickly. AI is developing rapidly, while expectations around mobile learning, accessibility, analytics, personalization, content creation, and learner experience continue to change. A platform that looks excellent today but remains static may eventually become a limitation. For me, adaptability is therefore an important part of scalability.</p>
+
+    <h1 id="s4">4. Minimum Setup, Maximum Impact: Technology Should Reduce Friction</h1>
+
+    <p>One of the five non-negotiables presented in the ebook is the idea of minimizing setup while maximizing impact. This may initially sound like a technical consideration, but I see it as a learning design issue as well. Every hour a teacher, trainer, or learning designer spends unnecessarily struggling with technology is an hour that could have been invested in improving the learning experience.</p>
+
+    <p>That is why ease of use is not simply a convenience. It can affect productivity, adoption, creativity, and eventually the quality of the learning program itself. The LearnWorlds ebook makes an interesting distinction when discussing usability: ease of use depends partly on who is using the platform. What feels intuitive to an experienced instructional designer may feel complicated to someone with less technical experience.</p>
+
+    <p>I agree with that distinction. A good LMS needs to think about more than one type of user. It needs to consider the learner navigating the experience, the instructor delivering content, the learning designer building the experience, and the administrator managing the platform. If one of those groups constantly struggles with the system, that friction eventually affects everyone else.</p>
+
+    <p>The ebook also places considerable emphasis on technical and implementation support. A powerful platform can still become ineffective if the people responsible for using it do not understand how to take advantage of its capabilities. Good support helps specialists move from asking, "How do I make this work?" to asking, "What can I create with this?" — and that is an important difference, because the first question is about overcoming the platform, while the second is about designing through it.</p>
+
+    <p>This also connects to something I believe strongly: learning professionals should be involved when organizations select learning technology. Budget owners, administrators, and technical teams naturally need to be part of the conversation. However, learning designers should also have a voice because they understand how the technology will actually affect the learning process.</p>
+
+    <div class="pullquote"><div class="pullquote-text">What are we trying to accomplish, and does this technology actually help us accomplish it?</div></div>
+
+    <h1 id="s5">5. Premium Features and a Reasonable Price: Value Depends on Context</h1>
+
+    <p>The final section of the ebook focuses on pricing and access to advanced LMS capabilities. LMS decisions are never made in a financial vacuum. Organizations have budgets, schools have budgets, and learning and development teams have to work within real financial constraints. Learning designers may have excellent ideas, but the technology still needs to be realistic and sustainable.</p>
+
+    <p>At the same time, I do not believe that the cheapest option is automatically the best value, just as the most expensive platform is not automatically the most sophisticated or appropriate. The more important question is what the organization is actually receiving in exchange for the cost. Does the platform provide capabilities that will genuinely be used? Can it reduce the need for additional systems? Can it scale without creating unpredictable costs?</p>
+
+    <p><strong>Features only matter when they serve a purpose.</strong> A platform containing hundreds of functions may look impressive during a demonstration, but if most of those tools have no relationship to the organization's learning strategy, they provide very little practical value. The goal should not be to find the LMS with the longest feature list or the lowest subscription price. The goal should be to find the platform that provides the right combination of usability, flexibility, instructional possibilities, scalability, and cost for the specific learning environment.</p>
+
+    <h1 id="s6">Data Should Help Us Understand Learning</h1>
+
+    <p>Although analytics appears throughout the LearnWorlds ebook rather than as one of its five chapter titles, I think it deserves particular attention. An LMS gives us access to something that traditional learning environments did not always provide easily: information about how learners interact with the experience.</p>
+
+    <p>Data alone, however, is not useful. What matters is what we do with it. Knowing that someone has completed a course can be useful, but it does not automatically tell us what that learner understood. I want learning technology to help us answer deeper questions. Where are learners progressing successfully? Where are they struggling? Which parts of the learning experience are creating engagement? Where are people disengaging? What might need to be redesigned?</p>
+
+    <p>The ebook also discusses using AI to make analytics easier to interpret. AI can help us identify patterns more quickly, but the professional still needs to interpret those patterns. Once again, technology can support judgment, but it should not replace it.</p>
+
+    <p>In educational settings, particularly with children, this also means using information responsibly. We should not create an environment in which every interaction becomes another test. The objective is not to measure learners constantly. The objective is to understand learning well enough to improve it.</p>
+
+    <h1 id="s7">What I Took Away From the LearnWorlds Ebook</h1>
+
+    <p>After reading <em>The 5 Non-Negotiables When Choosing Your LMS</em>, I do not think my main takeaway is that organizations need more technology. I think they need <strong>more appropriate technology.</strong></p>
+
+    <p>A successful LMS, from my perspective, is one that thinks about both sides of the learning experience. It needs to think about the learner who requires an intuitive, engaging, and accessible environment, but it also needs to think about the specialist who is responsible for designing that environment. The platform should be simple without being limited and customizable without becoming unnecessarily technical.</p>
+
+    <p>Most importantly, the LMS should give learning professionals room to think, design, experiment, and improve. Technology can help us make our ideas clearer, transform static information into experiences, identify patterns that were previously difficult to notice, and move more efficiently from an idea to a complete learning experience.</p>
+
+    <div class="pullquote"><div class="pullquote-text">We are not designing for the LMS; we are using the LMS to design for people.</div></div>
+
+    <p>That is also one reason I want to continue exploring educational technology — not only as someone who uses existing tools but as someone interested in developing new ideas and technologies of my own, including the work I have already begun with Navio.</p>
+
+    <p>The LearnWorlds ebook begins with five non-negotiables, but for me they ultimately lead back to one central principle: <strong>the best LMS is not necessarily the platform with the most features. It is the platform that gives learning professionals the right tools to create the right experience for their learners.</strong></p>
+
+    <p>That is the question I would keep at the center of any LMS decision: <strong>Does this platform help us design better learning?</strong></p>
+
+    <div class="article-source">
+      <div class="article-source-bar"></div>
+      <div class="article-source-content">
+        <strong>Reference</strong>
+        <span class="article-source-cite">LearnWorlds. "The 5 Non-Negotiables When Choosing Your LMS." <a href="https://www.learnworlds.com/resources/guides/never-settle-lms/" target="_blank" rel="noopener">learnworlds.com/resources/guides/never-settle-lms</a>.</span>
+      </div>
+    </div>
+
+  </article>
+
+  <aside>
+    <nav class="toc" aria-label="Table of contents">
+      <span class="toc-label">In this article</span>
+      <a href="#s1">1. The Human Mind and AI</a>
+      <a href="#s2">2. E-Learning Is About the Experience</a>
+      <a href="#s3">3. Scalability</a>
+      <a href="#s4">4. Minimum Setup, Maximum Impact</a>
+      <a href="#s5">5. Features and Price</a>
+      <a href="#s6">Data and Learning</a>
+      <a href="#s7">Key Takeaway</a>
+    </nav>
+  </aside>
+
+</div>
+
+<footer>
+  <span class="footer-name">Moses Arzomanian</span>
+  <a class="footer-back" href="https://moses-arzomanian.github.io/">← Back to Portfolio</a>
+</footer>
+
+<script>
+// Reading progress bar
+const fill = document.getElementById('progress-fill');
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop || document.body.scrollTop;
+  const total = doc.scrollHeight - doc.clientHeight;
+  fill.style.width = (scrolled / total * 100) + '%';
+});
+
+// Active TOC link
+const sections = document.querySelectorAll('article h1[id]');
+const tocLinks = document.querySelectorAll('.toc a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector('.toc a[href="#' + entry.target.id + '"]');
+      if(active) active.classList.add('active');
+    }
+  });
+}, {rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
