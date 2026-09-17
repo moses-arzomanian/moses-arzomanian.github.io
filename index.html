@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Moses Arzomanian — Learning & Development</title>
+<title>Moses Arzomanian: Learning & Development</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -169,7 +169,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:normal;}
 @media(max-width:768px){.cert-row{grid-template-columns:1fr;gap:6px;}.cert-meta{flex-wrap:wrap;gap:8px;}}
 
 /* LANGUAGES */
-.languages{border-top:1px solid var(--border);padding:64px 48px;display:flex;align-items:center;gap:0;overflow:hidden;}
+.languages{background:#142D47;border-top:1px solid var(--border);padding:64px 48px;display:flex;align-items:center;gap:0;overflow:hidden;}
+.lang-intro{color:rgba(255,255,255,0.5)!important;}
+.lang-items{border-left-color:rgba(255,255,255,0.12)!important;}
+.lang-item{border-right-color:rgba(255,255,255,0.12)!important;}
+.lang-n{color:#FFFFFF!important;}
+.lang-l{color:rgba(255,255,255,0.55)!important;}
 .lang-intro{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--muted);width:200px;flex-shrink:0;line-height:1.5;}
 .lang-items{display:flex;flex:1;border-left:1px solid var(--border);margin-left:40px;}
 .lang-item{flex:1;padding:0 40px;border-right:1px solid var(--border);}
@@ -189,8 +194,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;mix-blend-mode:normal;}
 .award-org-name{font-size:12px;color:var(--muted);}
 
 /* PUBLICATIONS */
-.publications{padding:96px 48px;}
-.pub-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;margin-bottom:64px;}
+.publications{padding:40px 48px 0 48px;}
+.pub-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;margin-bottom:20px;}
 .pub-row{display:grid;grid-template-columns:120px 1fr;gap:0;padding:28px 0;border-top:1px solid var(--border);}
 .pub-row:last-child{border-bottom:1px solid var(--border);}
 .pub-date-col{font-size:12px;color:var(--muted);padding-top:2px;padding-right:32px;}
@@ -226,38 +231,86 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
 .footer-year{font-size:11px;color:rgba(255,255,255,0.8);text-align:right;letter-spacing:0.5px;}
 @media(max-width:768px){footer{grid-template-columns:1fr;gap:6px;text-align:center;padding:20px 24px;}.footer-year{text-align:center;}}
 
+/* HAMBURGER */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
+.nav-hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,0.85);transition:all 0.25s;}
+.nav-mobile{display:none;position:fixed;top:52px;left:0;right:0;background:#3D5A80;z-index:99;padding:8px 0;border-top:1px solid rgba(255,255,255,0.1);}
+.nav-mobile a{display:block;padding:14px 24px;font-size:14px;color:rgba(255,255,255,0.85);font-weight:500;letter-spacing:0.3px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.nav-mobile a:last-child{border-bottom:none;}
+.nav-mobile.open{display:block;}
+
 /* RESPONSIVE */
 @media(max-width:1024px){
   .tools-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:768px){
+  /* NAV */
+  .nav-inner{padding:0 20px;}
   .nav-links{display:none;}
-  .hero{padding:0 24px 48px;}
-  .about,.navio-inner,.contact-inner,.education{grid-template-columns:1fr;gap:48px;}
+  .nav-hamburger{display:flex;}
+
+  /* HERO */
+  .hero{grid-template-columns:1fr;padding:80px 20px 48px;gap:40px;min-height:auto;}
+  .hero-right{border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,0.1);padding-top:32px;}
+  .hero-desc-row{grid-template-columns:1fr;gap:20px;}
+  .hero-desc-left{border-right:none;padding-right:0;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:20px;}
+  .hero-actions{flex-wrap:wrap;}
+  .btn-hero{flex:1;text-align:center;padding:12px 16px;}
+
+  /* SECTIONS */
+  section,.about,.experience,.education,.publications,.portfolio,.awards,.languages{padding-left:20px;padding-right:20px;}
+  .gallery-caption,.navio,.contact,.tools{padding-left:20px;padding-right:20px;}
+
+  /* ABOUT */
+  .about{grid-template-columns:1fr;gap:36px;padding-top:56px;padding-bottom:56px;}
+
+  /* TOOLS */
+  .tools-grid{grid-template-columns:1fr;}
+  .tools-grid > div:nth-child(3n){border-right:1px solid #D4D0CB;}
+  .tools-grid > div:nth-last-child(-n+3){border-bottom:1px solid #D4D0CB;}
+  .tools-grid > div:last-child{border-right:none;border-bottom:none;}
+
+  /* GALLERY */
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+
+  /* PORTFOLIO */
+  .portfolio{padding-left:20px;padding-right:20px;}
+  .port-item{grid-template-columns:44px 1fr;gap:0;padding:28px 0;}
+  .port-side{display:block;border-left:none;padding-left:0;padding-top:20px;grid-column:2;}
+  .port-detail{margin-bottom:12px;}
+
+  /* NAVIO */
   .navio-card-body{grid-template-columns:1fr;}
   .navio-left{border-right:none;border-bottom:1px solid rgba(255,255,255,0.07);}
   .navio-card-footer{grid-template-columns:1fr 1fr;}
   .navio-pillar{border-right:none!important;}
   .stat-strip{flex-wrap:wrap;}
-  .tools-grid{grid-template-columns:1fr 1fr;}
-  .port-item{grid-template-columns:48px 1fr;}
-  .port-side{display:none;}
-  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:200px 200px;}
-  .g-slot:nth-child(2){grid-column:2;grid-row:1;}
-  .g-slot:nth-child(3){grid-column:1;grid-row:2;}
-  .g-slot:nth-child(4){grid-column:2;grid-row:2;}
+
+  /* EXPERIENCE */
   .exp-row{grid-template-columns:1fr;}
-  .languages{flex-direction:column;gap:24px;padding:48px 24px;}
+  .exp-detail{border-left:none;padding-left:0;border-top:1px solid var(--border);padding-top:16px;margin-top:4px;}
+
+  /* LANGUAGES */
+  .languages{flex-direction:column;gap:24px;padding:40px 20px;}
   .lang-intro{width:100%;}
   .lang-items{border-left:none;margin-left:0;flex-wrap:wrap;}
   .lang-item{min-width:120px;padding:16px;}
+
+  /* AWARDS */
   .awards-list{grid-template-columns:1fr;}
   .award-entry:nth-child(even){padding-left:0;border-left:none;}
+
+  /* PUBLICATIONS */
   .pub-row{grid-template-columns:1fr;}
-  .pub-date-col{margin-bottom:8px;}
-  section,.about,.experience,.education,.publications,.portfolio,.awards,.languages{padding-left:24px;padding-right:24px;}
-  .gallery-caption,.navio,.contact,.tools{padding-left:24px;padding-right:24px;}
-  footer{padding:20px 24px;flex-direction:column;gap:8px;text-align:center;}
+  .pub-date-col{margin-bottom:6px;}
+
+  /* CONTACT */
+  .contact-inner{grid-template-columns:1fr;gap:40px;}
+  .contact-left-col{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);padding-right:0;padding-bottom:32px;flex-direction:row;align-items:center;}
+
+  /* FOOTER */
+  footer{grid-template-columns:1fr;gap:6px;text-align:center;padding:20px 20px;}
+  .footer-year{text-align:center;}
 }
 </style>
 </head>
@@ -274,6 +327,17 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
       <a href="#publications">Publications</a>
       <a href="#contact">Contact</a>
     </div>
+    <button class="nav-hamburger" onclick="document.querySelector('.nav-mobile').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile">
+    <a href="#about" onclick="this.closest('.nav-mobile').classList.remove('open')">About</a>
+    <a href="#portfolio" onclick="this.closest('.nav-mobile').classList.remove('open')">Portfolio</a>
+    <a href="#navio" onclick="this.closest('.nav-mobile').classList.remove('open')">Navio</a>
+    <a href="#experience" onclick="this.closest('.nav-mobile').classList.remove('open')">Experience</a>
+    <a href="#publications" onclick="this.closest('.nav-mobile').classList.remove('open')">Publications</a>
+    <a href="#contact" onclick="this.closest('.nav-mobile').classList.remove('open')">Contact</a>
   </div>
 </nav>
 
@@ -283,7 +347,7 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
     <div class="hero-name"><em>Moses Arzomanian</em></div>
     <div class="hero-desc-block">
       <span class="hero-desc-titles">Co-Founder &amp; CEO of Navio &nbsp;·&nbsp; Learning &amp; Development Specialist &nbsp;·&nbsp; Educator</span>
-      <p class="hero-desc">Thirteen years designing training that changes behavior — for organizations where getting it wrong actually costs something.</p>
+      <p class="hero-desc">Thirteen years designing training that changes behavior, for organizations where getting it wrong actually costs something.</p>
     </div>
     <div class="hero-services">
       <div class="hero-offer-label">What I Offer</div>
@@ -320,11 +384,11 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
 <section class="about" id="about">
   <div class="about-left">
     <h2>Learning design rooted in <em>real leadership</em></h2>
-    <p class="about-pull">The gap between "I explained it" and "they understood it" is where most training fails — and most designers stop looking.</p>
+    <p class="about-pull">The gap between "I explained it" and "they understood it" is where most training fails, and most designers stop looking.</p>
   </div>
   <div class="about-right">
-    <p>I've spent thirteen years building training systems for organizations where instruction isn't theoretical — it's the difference between a volunteer who shows up prepared and one who doesn't. As Learning & Development Lead and later Executive Chairperson of the Armenian Youth Federation Canada, I designed onboarding programs, facilitated leadership camps, and managed 250+ volunteers across multiple chapters.</p>
-    <p>My experience spans both ends of the learning spectrum — from designing youth programs for children and teenagers to facilitating professional development sessions for adult learners in organizational and community leadership contexts. I've delivered training in Canada, Armenia, and internationally, across languages and cultural contexts that most L&D practitioners don't navigate in a career.</p>
+    <p>I've spent thirteen years building training systems for organizations where instruction isn't theoretical; it's the difference between a volunteer who shows up prepared and one who doesn't. As Learning & Development Lead and later Executive Chairperson of the Armenian Youth Federation Canada, I designed onboarding programs, facilitated leadership camps, and managed 250+ volunteers across multiple chapters.</p>
+    <p>My experience spans both ends of the learning spectrum: from designing youth programs for children and teenagers to facilitating professional development sessions for adult learners in organizational and community leadership contexts. I've delivered training in Canada, Armenia, and internationally, across languages and cultural contexts that most L&D practitioners don't navigate in a career.</p>
     <p>My approach starts with the problem, not the content. Before touching a slide, I ask what "understood" looks like at the end of a session, where the highest-risk gaps are, and what the simplest structure is that moves people from confusion to capability.</p>
     <p>I hold a Bachelor of Education from Concordia University and certifications in AI evaluation, global diplomacy, organizational change management, and leadership development. I speak English, French, Armenian, and Arabic fluently.</p>
   </div>
@@ -403,9 +467,26 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
   <div class="port-item">
     <div class="port-num">01</div>
     <div class="port-main">
+      <div class="port-tool-label">Custom-Built RAG Platform · Coaching Platform</div>
+      <div class="port-item-title">Navio: AI Parenting Coach Platform</div>
+      <div class="port-item-desc">Co-founded and designed an AI-powered parenting platform that helps parents navigate behavioural and emotional challenges in children aged 8–17. Built on a Retrieval-Augmented Generation (RAG) architecture fed by 150+ expert guides developed in collaboration with psychologists: every response the AI coach gives is grounded in validated, specialist content, not generic advice. Parents are onboarded through a personalized journey track tailored to their child's specific challenges; when a situation exceeds what the platform can address, parents are referred directly to the partner psychologists. No templated content; every journey is built around the individual child.</div>
+    </div>
+    <div class="port-side">
+      <div>
+        <div class="port-detail"><strong>Role</strong>Co-Founder & CEO: concept, product design, platform architecture</div>
+        <div class="port-detail"><strong>Key skills shown</strong>AI instructional design, personalized learning pathways, expert content curation, RAG implementation</div>
+        <div class="port-detail"><strong>Context</strong>EdTech · Child & Adolescent Development</div>
+      </div>
+      <a href="https://gonavio.ca" target="_blank" class="port-item-link">Visit gonavio.ca →</a>
+    </div>
+  </div>
+
+  <div class="port-item">
+    <div class="port-num">02</div>
+    <div class="port-main">
       <div class="port-tool-label">Mentimeter · Live Workshop</div>
       <div class="port-item-title">How to Give an Effective Instruction</div>
-      <div class="port-item-desc">A 15-minute interactive workshop built for a panel interview with Computershare Canada's Talent, Learning & Reward team. Uses pre/post Likert scales to measure confidence shift, real-time quizzes, a ranking exercise, and a shareholder record compliance scenario. The session models the framework it teaches — every design choice is a demonstration of the principle being covered.</div>
+      <div class="port-item-desc">A 15-minute interactive workshop built for a panel interview with Computershare Canada's Talent, Learning & Reward team. Uses pre/post Likert scales to measure confidence shift, real-time quizzes, a ranking exercise, and a shareholder record compliance scenario. The session models the framework it teaches: every design choice is a demonstration of the principle being covered.</div>
     </div>
     <div class="port-side">
       <div>
@@ -418,11 +499,11 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
   </div>
 
   <div class="port-item">
-    <div class="port-num">02</div>
+    <div class="port-num">03</div>
     <div class="port-main">
       <div class="port-tool-label">Rise 360 · E-Learning Course</div>
       <div class="port-item-title">Strategic Planning for Non-Profit Leaders</div>
-      <div class="port-item-desc">A 6-lesson course grounded entirely in real experience — AYF Canada's fundraising crisis, Camp Vanadzor's diaspora-homeland programming, ARF JOC youth leadership camps, and the Infinite Hope program in Armenia. Covers vision-to-action frameworks, people and leadership dynamics, and applied case studies. Includes a practice scenario, multi-type knowledge assessment, and a personal reflection assignment.</div>
+      <div class="port-item-desc">A 6-lesson course grounded entirely in real experience: AYF Canada's fundraising crisis, Camp Vanadzor's diaspora-homeland programming, ARF JOC youth leadership camps, and the Infinite Hope program in Armenia. Covers vision-to-action frameworks, people and leadership dynamics, and applied case studies. Includes a practice scenario, multi-type knowledge assessment, and a personal reflection assignment.</div>
     </div>
     <div class="port-side">
       <div>
@@ -435,11 +516,11 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
   </div>
 
   <div class="port-item">
-    <div class="port-num">03</div>
+    <div class="port-num">04</div>
     <div class="port-main">
       <div class="port-tool-label">TalentLMS · Course + Assessment</div>
       <div class="port-item-title">Problem-Solving Reflection Framework</div>
-      <div class="port-item-desc">A 20–25 minute course teaching a 7-step structured reflection framework. Built entirely on TalentLMS's native course builder. Features ordering, fill-the-gap, and match-the-pairs questions — each testing a different cognitive level. Includes a real non-profit scenario and a personal reflection assignment required for completion. Designed to demonstrate multi-type assessment design without external authoring tools.</div>
+      <div class="port-item-desc">A 20–25 minute course teaching a 7-step structured reflection framework. Built entirely on TalentLMS's native course builder. Features ordering, fill-the-gap, and match-the-pairs questions, each testing a different cognitive level. Includes a real non-profit scenario and a personal reflection assignment required for completion. Designed to demonstrate multi-type assessment design without external authoring tools.</div>
     </div>
     <div class="port-side">
       <div>
@@ -452,11 +533,11 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
   </div>
 
   <div class="port-item">
-    <div class="port-num">04</div>
+    <div class="port-num">05</div>
     <div class="port-main">
       <div class="port-tool-label">Custom-Built · Facilitator Guide</div>
       <div class="port-item-title">Team Alignment Workshop</div>
-      <div class="port-item-desc">A structured half-day facilitated workshop for existing teams of 8–20. Covers 5 modules — Real Team, Team Members, Vision &amp; Mission, Values, and Rules &amp; Culture — culminating in a signed Team Charter. Built as an interactive HTML document the facilitator fills in during the session and prints as a PDF for the team to keep. Grounded in Tuckman's Stages and Lencioni's Five Dysfunctions.</div>
+      <div class="port-item-desc">A structured half-day facilitated workshop for existing teams of 8–20. Covers 5 modules: Real Team, Team Members, Vision &amp; Mission, Values, and Rules &amp; Culture, culminating in a signed Team Charter. Built as an interactive HTML document the facilitator fills in during the session and prints as a PDF for the team to keep. Grounded in Tuckman's Stages and Lencioni's Five Dysfunctions.</div>
     </div>
     <div class="port-side">
       <div>
@@ -469,11 +550,11 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
   </div>
 
   <div class="port-item">
-    <div class="port-num">05</div>
+    <div class="port-num">06</div>
     <div class="port-main">
       <div class="port-tool-label">FlipHTML5 · Interactive Document</div>
       <div class="port-item-title">Student Council Bylaw</div>
-      <div class="port-item-desc">A custom-built student council bylaw written end to end — governing structure, roles, elections, and procedures — and published as an interactive digital book using FlipHTML5. Every article and clause was authored from scratch to reflect the specific context and needs of the student council. Designed to be both a formal governance document and a practical reference students can navigate easily.</div>
+      <div class="port-item-desc">A custom-built student council bylaw written end to end covering governing structure, roles, elections, and procedures, published as an interactive digital book using FlipHTML5. Every article and clause was authored from scratch to reflect the specific context and needs of the student council. Designed to be both a formal governance document and a practical reference students can navigate easily.</div>
     </div>
     <div class="port-side">
       <div>
@@ -505,8 +586,8 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
         <p class="navio-tagline">Because raising them right starts with knowing how.</p>
       </div>
       <div class="navio-text">
-        <p class="navio-text-lead">Navio is a parenting platform designed to help parents of children aged 8 to 17 teach values, life skills, and problem-solving in a structured, practical way. Through a private parent dashboard, families access curated video and AI-powered personalized content — tailored to the child's specific age, challenges, and what matters most to the family right now.</p>
-        <p class="navio-text-body">The platform grows with the child: 151+ clinically validated guides spanning pre-adolescence through late teenage years, with personalized coaching available day or night. The same design philosophy that drives my L&D work — meet the learner exactly where they are.</p>
+        <p class="navio-text-lead">Navio is a parenting platform designed to help parents of children aged 8 to 17 teach values, life skills, and problem-solving in a structured, practical way. Through a private parent dashboard, families access curated video and AI-powered personalized content, tailored to the child's specific age, challenges, and what matters most to the family right now.</p>
+        <p class="navio-text-body">The platform grows with the child: 151+ clinically validated guides spanning pre-adolescence through late teenage years, with personalized coaching available day or night. The same design philosophy that drives my L&D work: meet the learner exactly where they are.</p>
       </div>
       </div>
       <div class="navio-media">
@@ -522,7 +603,7 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
       <div class="navio-pillar"><div class="pillar-label">Platform</div><div class="pillar-text">AI-powered parent dashboard with curated video and personalized guidance</div></div>
       <div class="navio-pillar"><div class="pillar-label">Audience</div><div class="pillar-text">Parents of children aged 8 to 17, navigating values, life skills, and behaviour</div></div>
       <div class="navio-pillar"><div class="pillar-label">Content</div><div class="pillar-text">151+ clinically validated guides across every major developmental challenge</div></div>
-      <div class="navio-pillar"><div class="pillar-label">Approach</div><div class="pillar-text">Personalized, not generic — built around the specific child and family context</div></div>
+      <div class="navio-pillar"><div class="pillar-label">Approach</div><div class="pillar-text">Personalized, not generic; built around the specific child and family context</div></div>
     </div>
   </div>
 </section>
@@ -590,7 +671,7 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
       <div class="exp-title">Learning & Development Lead</div>
       <ul class="exp-points">
         <li>Designed and delivered training programs for volunteers and partner teams over 11 years</li>
-        <li>Built structured systems to organize and share internal knowledge — reducing onboarding time significantly</li>
+        <li>Built structured systems to organize and share internal knowledge, reducing onboarding time significantly</li>
         <li>Developed practical guides, templates, and learning materials to support consistent cross-chapter performance</li>
         <li>Used feedback and performance indicators to continuously improve training quality</li>
       </ul>
@@ -606,7 +687,7 @@ footer{background:#3D5A80;padding:16px 48px;border-top:1px solid rgba(255,255,25
   <div class="exp-row">
     <div class="exp-meta"><div class="exp-year">2018–2024</div><div class="exp-org-name">ARF JOC</div></div>
     <div class="exp-content">
-      <div class="exp-title">Head Counselor — Youth Leadership Camps</div>
+      <div class="exp-title">Head Counselor: Youth Leadership Camps</div>
       <ul class="exp-points">
         <li>Designed and led youth leadership camps for approximately 100 participants per cycle</li>
         <li>Developed facilitator guides enabling consistent delivery regardless of who led the session</li>
