@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Soft Skills, Sharp Tools: Moses Arzomanian</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#142D47;
+  --rust:#E07A5F;
+  --warm:#F7F5F2;
+  --page:#FAFAF8;
+  --white:#FFFFFF;
+  --border:#E2DED9;
+  --muted:#7A756F;
+  --navy:#3D5A80;
+  --text:#2C3B4A;
+  --gold:#C9962D;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--page);-webkit-font-smoothing:antialiased;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+
+/* READING PROGRESS */
+#progress-bar{position:fixed;top:52px;left:0;right:0;height:3px;background:var(--border);z-index:99;}
+#progress-fill{height:100%;width:0%;background:var(--rust);transition:width 0.1s linear;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:52px;background:#3D5A80;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:rgba(255,255,255,0.9);letter-spacing:0.5px;}
+.nav-back{font-size:12px;color:rgba(255,255,255,0.8);font-weight:500;letter-spacing:0.3px;display:flex;align-items:center;gap:6px;transition:color 0.2s;}
+.nav-back:hover{color:white;}
+.nav-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;}
+
+/* HERO */
+.article-hero{background:#142D47;padding:108px 80px 72px;}
+.article-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:24px;}
+.article-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,3.2vw,3.6rem);
+  font-weight:400;color:#FFFFFF;
+  line-height:1.05;letter-spacing:-1px;margin-bottom:16px;
+  text-wrap:balance;
+}
+.article-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1rem,1.6vw,1.25rem);
+  font-weight:300;font-style:italic;
+  color:rgba(255,255,255,0.5);
+  margin-bottom:32px;
+  line-height:1.5;
+}
+.article-meta{display:flex;align-items:center;gap:0;flex-wrap:wrap;}
+.article-byline{font-size:13px;color:rgba(255,255,255,0.8);font-weight:500;}
+.meta-dot{color:rgba(255,255,255,0.25);margin:0 12px;font-size:12px;}
+.article-date{font-size:12px;color:rgba(255,255,255,0.45);}
+.article-readtime{font-size:12px;color:rgba(255,255,255,0.4);}
+
+/* LAYOUT */
+.article-wrap{
+  padding:64px 80px 96px;
+  display:grid;
+  grid-template-columns:1fr 240px;
+  gap:80px;
+  align-items:start;
+}
+
+/* SIDEBAR TOC */
+.toc{
+  position:sticky;top:80px;
+  padding:24px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:3px solid var(--rust);
+}
+.toc-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rust);margin-bottom:16px;display:block;}
+.toc a{display:block;font-size:12px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.4;transition:color 0.15s;}
+.toc a:last-child{border-bottom:none;}
+.toc a:hover{color:var(--ink);}
+.toc a.active{color:var(--rust);font-weight:500;}
+
+/* ARTICLE BODY */
+article{min-width:0;}
+
+.intro-p{
+  font-size:17.5px;
+  line-height:1.9;
+  color:var(--text);
+  margin-bottom:28px;
+}
+.intro-p:first-child::first-letter{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4.2rem;
+  font-weight:300;
+  color:var(--rust);
+  float:left;
+  line-height:0.8;
+  margin-right:10px;
+  margin-top:8px;
+}
+
+article p{
+  font-size:16px;
+  line-height:1.85;
+  color:var(--text);
+  margin-bottom:20px;
+}
+article p:last-child{margin-bottom:0;}
+
+/* SECTION HEADINGS */
+article h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,2.2vw,1.85rem);
+  font-weight:600;
+  color:var(--ink);
+  line-height:1.25;
+  margin:40px 0 16px;
+  position:relative;
+}
+article h2::before{
+  content:'';
+  display:block;
+  width:36px;height:2px;
+  background:var(--rust);
+  margin-bottom:18px;
+  opacity:0.7;
+}
+
+article h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.3rem,2vw,1.65rem);
+  font-weight:400;
+  font-style:italic;
+  color:var(--ink);
+  line-height:1.3;
+  margin:40px 0 16px;
+}
+
+strong{color:var(--ink);font-weight:600;}
+em{font-style:italic;}
+
+/* MEETING TYPE CARDS */
+.meeting-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  margin:32px 0;
+}
+.meeting-card{
+  padding:24px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-top:3px solid var(--navy);
+}
+.meeting-card.facilitated{border-top-color:var(--rust);}
+.meeting-card-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px;display:block;}
+.meeting-card.facilitated .meeting-card-label{color:var(--rust);}
+.meeting-card-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--ink);margin-bottom:12px;}
+.meeting-card p{font-size:13.5px;color:var(--muted);line-height:1.75;margin-bottom:0;}
+
+/* PULL QUOTE */
+.pullquote{
+  margin:40px -4px;
+  padding:32px 40px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:none;border-right:none;
+  text-align:center;position:relative;
+}
+.pullquote::before{
+  content:'\201C';
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;
+  color:var(--rust);opacity:0.3;
+  position:absolute;top:-10px;left:24px;line-height:1;
+}
+.pullquote-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.2rem,2vw,1.5rem);
+  font-style:italic;font-weight:400;
+  color:var(--ink);line-height:1.55;
+  position:relative;z-index:1;
+}
+
+/* WARNING BOX */
+.warning-box{
+  margin:32px 0;
+  padding:20px 24px;
+  background:rgba(224,122,95,0.06);
+  border-left:3px solid var(--rust);
+  border-radius:0 4px 4px 0;
+}
+.warning-box p{
+  font-size:14.5px;
+  color:var(--text);
+  margin-bottom:0;
+  line-height:1.7;
+}
+.warning-box strong{color:var(--rust);}
+
+/* TECH BOX */
+.tech-box{
+  margin:28px 0;
+  padding:18px 22px;
+  background:rgba(61,90,128,0.06);
+  border-left:3px solid var(--navy);
+  border-radius:0 4px 4px 0;
+}
+.tech-box-label{
+  font-size:9px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--navy);
+  display:block;margin-bottom:6px;
+}
+.tech-box p{
+  font-size:14px;
+  color:var(--text);
+  margin-bottom:0;
+  line-height:1.7;
+}
+
+/* SECTION DIVIDER */
+.section-divider{
+  text-align:center;
+  color:var(--muted);
+  font-size:18px;
+  letter-spacing:12px;
+  margin:48px 0;
+  opacity:0.4;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .article-wrap{grid-template-columns:1fr;padding:48px 32px 80px;}
+  .toc{position:static;order:-1;}
+  .article-hero{padding:80px 32px 52px;}
+  .meeting-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="https://moses-arzomanian.github.io" class="nav-logo">Moses Arzomanian</a>
+    <a href="https://moses-arzomanian.github.io" class="nav-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Portfolio
+    </a>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="article-eyebrow">Leadership · Team Dynamics · Technology</div>
+  <h1 class="article-title">Soft Skills, Sharp Tools:<br/>The Leadership Practices That Technology Now Amplifies</h1>
+  <p class="article-subtitle">Human judgment and digital insight, working together</p>
+  <div class="article-meta">
+    <span class="article-byline">Moses Arzomanian</span>
+    <span class="meta-dot">·</span>
+    <span class="article-date">February 2026</span>
+    <span class="meta-dot">·</span>
+    <span class="article-readtime">10 min read</span>
+  </div>
+</header>
+
+<div class="article-wrap">
+  <article id="article-content">
+
+    <p class="intro-p">Working with groups over the years, I kept noticing the same divide. Some teams seemed to run on their own energy: they made decisions efficiently, held each other accountable, and pushed work forward without constant intervention. Others struggled not because of talent or commitment, but because of the habits they had never built. How a team meets, decides, motivates itself, and gives feedback is not incidental to its success. It is the substance of it.</p>
+
+    <p>This article draws from facilitation practice and leadership experience to lay out the core habits that make teams actually work: and the role technology plays in sustaining them.</p>
+
+    <div class="pullquote">
+      <p class="pullquote-text">A team does not succeed by accident. It succeeds because its leader understood what to build before the work began.</p>
+    </div>
+
+    <h2 id="s1">The Two Faces of Meeting Facilitation</h2>
+
+    <p>Most leaders run meetings on instinct. Few stop to ask which kind of meeting they are actually trying to run, and that distinction matters more than almost any other choice they make in the room.</p>
+
+    <p>There are two fundamentally different approaches to leading a group meeting, and they call for very different skills.</p>
+
+    <div class="meeting-grid">
+      <div class="meeting-card facilitated">
+        <span class="meeting-card-label">Approach 1</span>
+        <div class="meeting-card-title">Facilitated Meeting</div>
+        <p>The facilitator shapes the environment rather than the outcome. The goal is to create the conditions in which participants feel safe to speak, challenge, and contribute. The facilitator guides the conversation with questions, not conclusions, and works to draw out what is already in the room rather than directing it toward a predetermined destination.</p>
+      </div>
+      <div class="meeting-card">
+        <span class="meeting-card-label">Approach 2</span>
+        <div class="meeting-card-title">Running a Meeting</div>
+        <p>A structured meeting with clear objectives, a defined agenda, and active guidance from the leader. The outcomes are explicit, the pace is managed, and the leader takes a more visible directional role. The risk here is real: if the leader's personality dominates the room, quieter voices withdraw, and the group's output narrows to reflect whoever speaks loudest.</p>
+      </div>
+    </div>
+
+    <p>Neither approach is superior. What matters is knowing which one the situation demands, and having the discipline to hold yourself to it. A leader who facilitates when they should direct wastes time. One who directs when they should facilitate suppresses the very input that would have made the decision better.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">How technology helps</span>
+      <p>Live polling platforms like Mentimeter allow leaders to collect real-time input, surface what the group is actually thinking, and display responses anonymously so that quieter participants can contribute without social pressure. In a facilitated meeting, this is particularly powerful: it shifts the dynamic away from whoever speaks first and gives every voice equal visual weight in the room. Digital whiteboards and AI meeting assistants that transcribe and summarize discussions help ensure that what was said in the meeting is not lost once the meeting ends.</p>
+    </div>
+
+    <h2 id="s2">Voting vs. Consensus</h2>
+
+    <p>The way a group makes decisions shapes its culture more than almost any other practice. And the most common approach, the one most groups default to without thinking, is also the one most likely to fracture a team over time.</p>
+
+    <p>Voting is democratic in appearance. But in practice, when the same type of thinker consistently forms the majority, voting becomes a mechanism for suppression. The minority position is not integrated: it is simply outvoted. Over a year of meetings run this way, the same members win the same arguments, and the same members stop bringing their real views to the table. The group becomes less diverse in its thinking precisely because it kept voting.</p>
+
+    <p>True democracy, in the deeper sense, means including the perspective of the minority within the majority outcome. A leader who understands this sees their role not as tallying votes, but as building consensus: helping the majority recognize that sometimes they must give way, so that every voice can be integrated into the final direction.</p>
+
+    <div class="warning-box">
+      <p><strong>The leader's responsibility:</strong> It is not about avoiding votes altogether. It is about recognizing when a vote will produce a one-sided outcome and intervening before it does. The signature of a strong facilitator is that their group learns, over time, to express compromise. Every member learns what it feels like to hold back a majority position in order to include a minority perspective. That is a skill the leader teaches by practicing it consistently.</p>
+    </div>
+
+    <p>Consensus does not mean unanimity. It means that every voice has been genuinely represented, that each person felt heard, and that the final direction carries the group's collective ownership, not just the majority's preference.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">How technology helps</span>
+      <p>Platforms like Mentimeter allow groups to vote anonymously and see results in real time: which can actually be used to open the conversation rather than close it. Rather than using a live poll as a final verdict, a skilled facilitator uses it as a diagnostic: here is where the group currently stands. Now let us talk about what the minority position holds that the majority has not yet heard. Anonymous polling also removes the social pressure to align with the vocal majority, which means the initial results more accurately reflect genuine views rather than social conformity.</p>
+    </div>
+
+    <div class="section-divider">· · ·</div>
+
+    <h2 id="s3">Motivation and Small Victories</h2>
+
+    <p>Motivation is often treated as something a team either has or does not have. In practice, it is something the leader creates and maintains, moment by moment, through the way they frame progress.</p>
+
+    <p>When work begins, motivation is abundant. The project is new, the energy is high, and the team moves quickly. The challenge arrives in the middle: when the novelty has faded, the finish line is not yet visible, and the work has become difficult. This is when motivation drops, and this is precisely when most leaders fail to intervene.</p>
+
+    <p>The antidote is milestones. Breaking the work into visible stages and naming each stage as a success as it is reached gives the team a rhythm of achievement. Every completed milestone is a small victory, and small victories are what sustain motivation across the full arc of a project.</p>
+
+    <p>As a leader, articulating these wins is not optional. The team will not always recognize its own progress. That is your job: to hold up what was accomplished, name it clearly, and let it land before moving to what is next.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">How technology helps</span>
+      <p>Visual project management tools make this tangible. A Kanban board, where tasks move from column to column, or a Gantt chart that shows phases advancing toward completion, creates a shared map of progress that the team can see without needing to be told. The psychological effect of watching work move across a board is real: it communicates, subconsciously, that the project is alive and moving forward. Each card that closes, each milestone that turns green, is a small victory made visible. AI project analytics take this further: by analyzing patterns across tasks, timelines, and team output, these tools can flag when a project is losing momentum before the slowdown becomes visible to the naked eye. A leader who can see a risk signal two weeks before it becomes a stall has time to act. One who only notices it when the team is already stuck is always playing catch-up.</p>
+    </div>
+
+    <h2 id="s4">Creating Momentum</h2>
+
+    <p>Momentum comes before motivation. This is a distinction most leaders miss.</p>
+
+    <p>Before the team has milestones to celebrate, before the work has a rhythm, before discipline has taken hold, the leader must create the initial energy that gets everything moving. That energy does not emerge from a plan or a timeline. It emerges from the leader's presence: their vision, their patience, their engagement, and the way they carry themselves in the early days of a project.</p>
+
+    <p>A team that feels a leader who is genuinely invested, who brings energy into the room and holds a clear picture of where the group is going, will begin to move. And once that initial movement begins, something important happens: momentum builds on itself. The group that was uncertain becomes a group that is working, and working groups develop their own pull forward.</p>
+
+    <p>Think of it like a ship. Getting it moving takes significant effort. But once it is underway and gathering speed, it carries itself. The leader's role shifts from initiating movement to protecting it: keeping the energy alive, preventing the small disruptions that slow the pace, and sustaining the conditions that allow the team to keep building on what it has already started.</p>
+
+    <div class="warning-box">
+      <p><strong>The leader's practice:</strong> Momentum is fragile in the early stages and nearly self-sustaining once established. The mistake is treating it like a switch rather than a living thing. Like watering a plant, it must be tended consistently: not dramatically, but reliably. The leader who shows up with presence and energy on ordinary days, not just important ones, is the one whose team maintains its pace when the work gets hard.</p>
+    </div>
+
+    <h2 id="s5">Accountability as a Team</h2>
+
+    <p>A team's relationship to accountability defines whether it can actually grow. And the most common version of team accountability, the one where the leader absorbs blame and deflects credit upward, is incomplete in a way that quietly holds the group back.</p>
+
+    <p>When a leader steps up and says "that was my fault," they model something important. But accountability cannot live only with the leader. The team was present when the decision was made. They contributed, voted, and raised no objection at the time. Their silence was also a choice, and their ownership of the outcome must follow from it.</p>
+
+    <p>A leader who takes responsibility without the team taking responsibility alongside them creates a dynamic where errors are absorbed but never fully processed. The team learns that mistakes have a cost, but not that they share it. Over time, this erodes the very accountability culture the leader is trying to build.</p>
+
+    <div class="pullquote">
+      <p class="pullquote-text">When the leader says, "I was wrong," the team must also say, "We were wrong." Accountability is not a burden the leader carries alone. It is a commitment the group holds together.</p>
+    </div>
+
+    <p>True team accountability means that success belongs to everyone and failure belongs to everyone. The leader articulates this clearly, models it consistently, and creates an environment where errors are learning events rather than threats. The team's collective slogan must be: <em>accountability as a team</em>. Not as a phrase, but as a lived practice that shapes how the group responds every time something goes wrong.</p>
+
+    <div class="warning-box">
+      <p><strong>What this requires:</strong> The team must feel safe enough to claim its mistakes without fear of punishment or isolation. That safety is built slowly, by a leader who responds to errors with curiosity rather than blame, and who insists that the goal is not to find who was at fault but to understand what can be learned and done differently.</p>
+    </div>
+
+    <h2 id="s6">Giving and Receiving Feedback</h2>
+
+    <p>Feedback is the mechanism by which a team corrects itself. Without it, small problems compound into large ones, individual blindspots remain unchallenged, and the group's work gradually drifts from what it could be.</p>
+
+    <p>But feedback, done poorly, does more damage than silence. A single harmful comment can fracture trust in a way that takes months to repair. The goal is not to give feedback as often as possible: it is to give feedback that actually lands, that is received without defensiveness, and that produces genuine change.</p>
+
+    <p>The challenge is that feedback is calibration-sensitive in both directions. Too little, and the issue is never addressed. Too much, and the recipient shuts down. Focused only on one dimension of performance, and you may solve one problem while inadvertently creating another. Balance is not a soft ideal here: it is a technical requirement.</p>
+
+    <p>One framework that works reliably is the feedback sandwich: open with something genuine and specific that is working well, introduce the area for development clearly and without apology, and close with something that reinforces the person's capacity and your confidence in them. The structure matters because it changes the emotional context in which the critique is received. The person does not feel attacked. They feel seen first, challenged second, and supported third.</p>
+
+    <div class="warning-box">
+      <p><strong>The team's responsibility:</strong> Feedback must become a cultural norm, not an exceptional event. When the team builds a regular rhythm of reflection, where giving and receiving honest input is simply part of how they work together, individual feedback becomes less charged and more useful. The team learns that a critique is not a judgment on who someone is: it is an observation about what they did, offered in service of what they could do instead.</p>
+    </div>
+
+    <div class="tech-box">
+      <span class="tech-box-label">How technology helps</span>
+      <p>Anonymous feedback platforms allow team members to share observations they might hesitate to raise face to face, reducing the social friction that often prevents honest input from reaching the people who need it. When feedback is collected regularly and presented in aggregate, it becomes a team resource rather than a personal confrontation. 360-degree review tools structure this further: by collecting input from peers, direct reports, and leadership simultaneously, they give both the individual and the team a fuller picture of how performance is landing across different relationships and roles. AI-assisted tools can help frame feedback more constructively: identifying tone, flagging language that might land as personal rather than professional, and suggesting ways to deliver a difficult message with more care. Together, these tools lower the threshold for giving feedback at all, and raise the quality of what is given.</p>
+    </div>
+
+    <h2 id="s7">What Technology Makes Possible</h2>
+
+    <p>Each section above has touched on specific tools. But it is worth stepping back to name the broader shift that technology enables for leaders who understand how to use it.</p>
+
+    <p>The most persistent challenge in group leadership is that the most important signals are often invisible. A member who is disengaging rarely announces it. A decision-making pattern that silences the minority rarely names itself. A team that has lost momentum often does not know it until the work has already stalled.</p>
+
+    <p>Technology changes what the leader can see. Polling tools make the group's real thinking visible, without the distortion of social pressure. Project management platforms make progress tangible, so that the team can witness its own movement. Anonymous feedback channels give the leader access to what the group would not say in an open room. Pulse surveys surface changes in engagement before they become patterns of withdrawal.</p>
+
+    <p>None of these tools replace judgment. A leader who reads a poll result and acts on it without conversation has missed the point. The data is a prompt, not a conclusion. But a leader who uses the data as a starting point: who says, here is what the group is thinking, now let us talk about what that means: has access to a quality of insight that was simply not available before.</p>
+
+    <p>Used with that understanding, technology does not mechanize leadership. It deepens it. It gives the leader more to work with, more precision in their interventions, and more confidence that what they are responding to is real rather than assumed.</p>
+
+    <h3 id="s8">A final word</h3>
+
+    <p>The habits described in this article are not complicated. But they are demanding, because they require consistency over time, in ordinary moments, when no one is watching and the stakes do not feel high.</p>
+
+    <p>How a team meets. How it decides. How it motivates itself, holds itself accountable, and speaks honestly to one another. These are not secondary concerns to be addressed once the real work is underway. They are the real work. A team that gets them right does not just perform better on a single project: it builds the capacity to perform on every project that follows.</p>
+
+    <p>That is what a leader is building, even when it does not feel like it. The habits you establish in the early days of a team are the habits the team will carry long after you have moved on.</p>
+
+  </article>
+
+  <aside>
+    <nav class="toc" id="toc">
+      <span class="toc-label">In this article</span>
+      <a href="#s1">Meeting Facilitation</a>
+      <a href="#s2">Voting vs. Consensus</a>
+      <a href="#s3">Motivation and Small Victories</a>
+      <a href="#s4">Creating Momentum</a>
+      <a href="#s5">Accountability as a Team</a>
+      <a href="#s6">Giving and Receiving Feedback</a>
+      <a href="#s7">What Technology Makes Possible</a>
+      <a href="#s8">A Final Word</a>
+    </nav>
+  </aside>
+</div>
+
+<script>
+// Reading progress
+const fill = document.getElementById('progress-fill');
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrolled = doc.scrollTop;
+  const total = doc.scrollHeight - doc.clientHeight;
+  fill.style.width = Math.min(100, (scrolled / total) * 100) + '%';
+});
+
+// TOC active state
+const headings = document.querySelectorAll('article h2[id], article h3[id]');
+const tocLinks = document.querySelectorAll('.toc a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector('.toc a[href="#' + entry.target.id + '"]');
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+headings.forEach(h => observer.observe(h));
+</script>
+</body>
+</html>
