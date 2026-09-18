@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Between Two Rights: Moses Arzomanian</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#142D47;
+  --rust:#E07A5F;
+  --warm:#F7F5F2;
+  --page:#FAFAF8;
+  --white:#FFFFFF;
+  --border:#E2DED9;
+  --muted:#7A756F;
+  --navy:#3D5A80;
+  --text:#2C3B4A;
+  --gold:#C9962D;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--page);-webkit-font-smoothing:antialiased;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+
+/* READING PROGRESS */
+#progress-bar{position:fixed;top:52px;left:0;right:0;height:3px;background:var(--border);z-index:99;}
+#progress-fill{height:100%;width:0%;background:var(--rust);transition:width 0.1s linear;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:52px;background:#3D5A80;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:rgba(255,255,255,0.9);letter-spacing:0.5px;}
+.nav-back{font-size:12px;color:rgba(255,255,255,0.8);font-weight:500;letter-spacing:0.3px;display:flex;align-items:center;gap:6px;transition:color 0.2s;}
+.nav-back:hover{color:white;}
+.nav-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;}
+
+/* HERO */
+.article-hero{background:#142D47;padding:108px 80px 72px;}
+.article-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:24px;}
+.article-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,3.2vw,3.6rem);
+  font-weight:400;color:#FFFFFF;
+  line-height:1.05;letter-spacing:-1px;margin-bottom:16px;
+  text-wrap:balance;
+}
+.article-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1rem,1.6vw,1.25rem);
+  font-weight:300;font-style:italic;
+  color:rgba(255,255,255,0.5);
+  margin-bottom:32px;
+  line-height:1.5;
+}
+.article-meta{display:flex;align-items:center;gap:0;flex-wrap:wrap;}
+.article-byline{font-size:13px;color:rgba(255,255,255,0.8);font-weight:500;}
+.meta-dot{color:rgba(255,255,255,0.25);margin:0 12px;font-size:12px;}
+.article-date{font-size:12px;color:rgba(255,255,255,0.45);}
+.article-readtime{font-size:12px;color:rgba(255,255,255,0.4);}
+
+/* LAYOUT */
+.article-wrap{
+  padding:64px 80px 96px;
+  display:grid;
+  grid-template-columns:1fr 240px;
+  gap:80px;
+  align-items:start;
+}
+
+/* SIDEBAR TOC */
+.toc{
+  position:sticky;top:80px;
+  padding:24px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:3px solid var(--rust);
+}
+.toc-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rust);margin-bottom:16px;display:block;}
+.toc a{display:block;font-size:12px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.4;transition:color 0.15s;}
+.toc a:last-child{border-bottom:none;}
+.toc a:hover{color:var(--ink);}
+.toc a.active{color:var(--rust);font-weight:500;}
+
+/* ARTICLE BODY */
+article{min-width:0;}
+
+.intro-p{
+  font-size:17.5px;
+  line-height:1.9;
+  color:var(--text);
+  margin-bottom:28px;
+}
+.intro-p:first-child::first-letter{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4.2rem;
+  font-weight:300;
+  color:var(--rust);
+  float:left;
+  line-height:0.8;
+  margin-right:10px;
+  margin-top:8px;
+}
+
+article p{
+  font-size:16px;
+  line-height:1.85;
+  color:var(--text);
+  margin-bottom:20px;
+}
+article p:last-child{margin-bottom:0;}
+
+/* SECTION HEADINGS */
+article h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,2.2vw,1.85rem);
+  font-weight:600;
+  color:var(--ink);
+  line-height:1.25;
+  margin:40px 0 16px;
+  position:relative;
+}
+article h2::before{
+  content:'';
+  display:block;
+  width:36px;height:2px;
+  background:var(--rust);
+  margin-bottom:18px;
+  opacity:0.7;
+}
+
+article h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.3rem,2vw,1.65rem);
+  font-weight:400;
+  font-style:italic;
+  color:var(--ink);
+  line-height:1.3;
+  margin:40px 0 16px;
+}
+
+strong{color:var(--ink);font-weight:600;}
+em{font-style:italic;}
+
+/* DILEMMA BADGE */
+.dilemma-num{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--rust);
+  display:block;margin-bottom:6px;
+}
+
+/* 2x2 MATRIX */
+.matrix-wrap{margin:32px 0;}
+.matrix-label-top{text-align:center;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--navy);margin-bottom:8px;}
+.matrix-row-label{display:flex;align-items:center;}
+.matrix-side-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--navy);writing-mode:vertical-rl;transform:rotate(180deg);padding-right:10px;white-space:nowrap;}
+.matrix-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;flex:1;}
+.matrix-cell{
+  padding:20px 16px;
+  background:var(--white);
+  border:1px solid var(--border);
+  text-align:center;
+  min-height:100px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.matrix-cell.highlight{background:rgba(224,122,95,0.08);border-color:var(--rust);}
+.matrix-cell-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:6px;}
+.matrix-cell-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+.matrix-axis{display:flex;justify-content:space-between;margin-top:6px;padding:0 2px;}
+.matrix-axis span{font-size:10px;color:var(--muted);}
+
+/* PULL QUOTE */
+.pullquote{
+  margin:40px -4px;
+  padding:32px 40px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:none;border-right:none;
+  text-align:center;position:relative;
+}
+.pullquote::before{
+  content:'\201C';
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;
+  color:var(--rust);opacity:0.3;
+  position:absolute;top:-10px;left:24px;line-height:1;
+}
+.pullquote-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.2rem,2vw,1.5rem);
+  font-style:italic;font-weight:400;
+  color:var(--ink);line-height:1.55;
+  position:relative;z-index:1;
+}
+
+/* WARNING BOX */
+.warning-box{
+  margin:32px 0;
+  padding:20px 24px;
+  background:rgba(224,122,95,0.06);
+  border-left:3px solid var(--rust);
+  border-radius:0 4px 4px 0;
+}
+.warning-box p{
+  font-size:14.5px;
+  color:var(--text);
+  margin-bottom:0;
+  line-height:1.7;
+}
+.warning-box strong{color:var(--rust);}
+
+/* TECH BOX */
+.tech-box{
+  margin:28px 0;
+  padding:18px 22px;
+  background:rgba(61,90,128,0.06);
+  border-left:3px solid var(--navy);
+  border-radius:0 4px 4px 0;
+}
+.tech-box-label{
+  font-size:9px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--navy);
+  display:block;margin-bottom:6px;
+}
+.tech-box p{
+  font-size:14px;
+  color:var(--text);
+  margin-bottom:0;
+  line-height:1.7;
+}
+
+/* SECTION DIVIDER */
+.section-divider{
+  text-align:center;
+  color:var(--muted);
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:12px;
+  margin:48px 0;
+  opacity:0.6;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .article-wrap{grid-template-columns:1fr;padding:48px 32px 80px;}
+  .toc{position:static;order:-1;}
+  .article-hero{padding:80px 32px 52px;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="https://moses-arzomanian.github.io" class="nav-logo">Moses Arzomanian</a>
+    <a href="https://moses-arzomanian.github.io" class="nav-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Portfolio
+    </a>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="article-eyebrow">Leadership · Decision-Making · Technology</div>
+  <h1 class="article-title">Between Two Rights:<br/>Six Leadership Dilemmas, and the Role Technology Plays in Each</h1>
+  <p class="article-subtitle">The hardest leadership calls are not between right and wrong. They are between two rights.</p>
+  <div class="article-meta">
+    <span class="article-byline">Moses Arzomanian</span>
+    <span class="meta-dot">·</span>
+    <span class="article-date">June 2026</span>
+    <span class="meta-dot">·</span>
+    <span class="article-readtime">11 min read</span>
+  </div>
+</header>
+
+<div class="article-wrap">
+  <article id="article-content">
+
+    <p class="intro-p">The cleanest leadership decisions are easy. The hard ones are the ones where both options are defensible, where reasonable people disagree, and where no framework gives you a clean answer. These are the dilemmas that define a leader's character, not the easy calls.</p>
+
+    <p>Over the course of my work in group leadership and organizational development, six tensions surfaced again and again. Not as academic concepts, but as live situations where the wrong move could cost a relationship, a team's trust, or a leader's credibility. This article names each one, explains what is actually at stake, and identifies where technology can sharpen the leader's ability to navigate it.</p>
+
+    <div class="section-divider">· · ·</div>
+
+    <h2 id="s1"><span class="dilemma-num">Dilemma 1</span>Decisions vs. Relationships</h2>
+
+    <p>Every leader will face this tension in a meeting: a decision needs to be made, the team does not fully agree, and you must choose between pushing the decision forward and preserving the relationship. Most leaders instinctively favor one over the other, and that instinct, unchecked, is what gets them into trouble.</p>
+
+    <p>A useful tool here is the task-relationship matrix. It plots two axes: how important is the outcome of this decision, and how important is the relationship with the people in the room. Where your situation lands on that matrix should determine your approach.</p>
+
+    <div class="matrix-wrap">
+      <div class="matrix-label-top">Relationship Importance</div>
+      <div style="display:flex;gap:0;">
+        <div class="matrix-side-label">Outcome Importance</div>
+        <div style="flex:1;">
+          <div class="matrix-grid">
+            <div class="matrix-cell">
+              <div class="matrix-cell-title">Accommodate</div>
+              <div class="matrix-cell-desc">Low outcome stakes, high relationship value. Let the other position win.</div>
+            </div>
+            <div class="matrix-cell highlight">
+              <div class="matrix-cell-title">Collaborate</div>
+              <div class="matrix-cell-desc">Both matter. Invest time to find a solution everyone can own.</div>
+            </div>
+            <div class="matrix-cell">
+              <div class="matrix-cell-title">Avoid</div>
+              <div class="matrix-cell-desc">Neither is critical right now. Defer and revisit.</div>
+            </div>
+            <div class="matrix-cell">
+              <div class="matrix-cell-title">Compete</div>
+              <div class="matrix-cell-desc">High outcome stakes, lower relationship weight. Push the decision.</div>
+            </div>
+          </div>
+          <div class="matrix-axis">
+            <span>Low</span>
+            <span>High</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>When the outcome is critical and the relationship is durable, push the decision. When the relationship carries long-term strategic value and the decision is reversible, protect it. The mistake most leaders make is applying the same approach to every situation, without reading which quadrant they are actually in.</p>
+
+    <div class="warning-box">
+      <p><strong>The real risk:</strong> Leaders who always prioritize the decision are seen as directive and cold. Leaders who always protect the relationship are seen as indecisive. The skill is knowing which moment calls for which posture, and being able to explain that choice to the room.</p>
+    </div>
+
+    <h2 id="s2"><span class="dilemma-num">Dilemma 2</span>Transparency vs. Confidentiality</h2>
+
+    <p>Sensitive information is part of leadership. A performance issue, a structural change, a personnel decision that has not been announced. As a leader, you often know things you cannot share, and you still have to guide a group to the right outcome without revealing why.</p>
+
+    <p>The risk on both sides is real. Share too much, and you breach trust with the people whose information you hold. Share too little, and the group senses something is being withheld, which erodes their trust in you. There is no clean escape from this tension: only a principled way to sit inside it.</p>
+
+    <p>The key is to be consistent about what you treat as confidential. If you establish that certain categories of information are always private, your team learns to trust that silence is not the same as deception. When you say "I cannot share the details, but I can tell you how this decision was made," that framing respects both sides of the dilemma. What you cannot do is be selective in ways that look self-serving: confidentiality must be principled, not convenient.</p>
+
+    <p>In practice, this means the leader often has to work harder in the facilitation phase: guiding the group toward the right decision without tipping their hand, using questions rather than statements, and shaping the discussion through the process rather than the content. The leader who has information the group does not must be the most skilled person in the room at facilitation, precisely because they cannot use the most obvious tool available.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">How technology helps</span>
+      <p>Secure, role-based communication platforms allow leaders to manage different information layers without confusion. When sensitive discussions happen in dedicated channels with controlled access, the boundary between confidential and shared information becomes structural rather than reliant on individual discretion. This reduces both accidental disclosure and the appearance of selective transparency. Decision documentation tools can also record the reasoning behind a choice without exposing the underlying information that drove it, giving the team a window into the process without breaching the content.</p>
+    </div>
+
+    <h2 id="s3"><span class="dilemma-num">Dilemma 3</span>Team Will vs. Upper Decisions</h2>
+
+    <p>A directive comes from above. The team strongly opposes it. You are in the middle.</p>
+
+    <p>This is one of the most common situations in organizational life, and one of the most mishandled. Leaders tend to default to one of two positions: they either carry the organization's message faithfully, at the cost of the team's perception of them as an advocate; or they side with the team, at the cost of their credibility with leadership. Neither position is sustainable on its own.</p>
+
+    <p>The more effective approach is to be the translator, not the messenger. Your job is not to enforce the directive or to resist it: it is to help both sides understand each other well enough that the work can move forward. That means going into the conversation with both layers already understood. Before the team meeting, you need to know what flexibility, if any, exists in the directive. Before the leadership conversation, you need to be able to articulate what the team's objection actually is, not as noise but as legitimate input.</p>
+
+    <div class="pullquote">
+      <p class="pullquote-text">The best position in this dilemma is not on either side. It is at the boundary between them, translating in both directions.</p>
+    </div>
+
+    <p>In the long run, a team that sees you actively bringing their concerns upward, even when the outcome does not change, will trust you more than one that watches you deliver decisions without acknowledgment. And leadership that sees you able to move a team through resistance will value you more than one that needs to manage resistance itself.</p>
+
+    <div class="warning-box">
+      <p><strong>The boundary to set early:</strong> Before any large directive lands, clarify with leadership how much room exists for team input to shape the implementation, even if not the decision. That room, even if small, is what you bring to the team. Knowing you have something real to offer changes how you walk into that room.</p>
+    </div>
+
+    <h2 id="s4"><span class="dilemma-num">Dilemma 4</span>Controlling vs. Delegating</h2>
+
+    <p>Control feels like leadership. Knowing every detail, having a hand in every decision, being the person whose approval moves things forward: it maps onto a version of leadership that is easy to mistake for competence. But it is not leadership. It is a bottleneck with a title.</p>
+
+    <p>The pull toward control is understandable. Leaders are accountable for outcomes, and delegation introduces risk. If you give someone ownership of a task and they handle it poorly, the consequence lands on you. That risk is real. But the alternative, keeping everything close, creates a team that stops developing, stops bringing initiative, and stops functioning independently the moment you step away.</p>
+
+    <p>Effective delegation is not simply handing off tasks. It is handing off ownership, which is different. The person who owns a task is invested in its quality in a way that a person executing instructions is not. Ownership produces engagement; instruction-following produces compliance. The difference in output, over time, is significant.</p>
+
+    <p>The leader's role after delegation is not to disappear. It is to set clear expectations, define what success looks like, establish checkpoints, and then stay out of the way between those checkpoints. The leader who cannot do that middle part, who cannot resist checking in prematurely or quietly taking the task back, will never build a team that can run without them.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">How technology helps</span>
+      <p>Task management and project tracking platforms make delegation visible and measurable without requiring the leader to ask for updates. When ownership is assigned in a shared workspace, with deadlines and progress visible to everyone, the leader can monitor without micromanaging. The tool provides the check-in, not the leader. This also creates accountability structures that belong to the team rather than being imposed by the leader: a missed milestone is visible to everyone, not just flagged in a one-on-one. AI-assisted project analytics can surface which tasks are behind or at risk before they become problems, giving the leader the information needed to intervene selectively rather than constantly.</p>
+    </div>
+
+    <h2 id="s5"><span class="dilemma-num">Dilemma 5</span>Being Respected vs. Being Loved</h2>
+
+    <p>The classic formulation says you must choose. Machiavelli's version is well known. In practice, the framing of "choose one" is a trap that leads leaders to overcommit to one end and fail at both.</p>
+
+    <p>A team that loves their leader but does not respect them will not follow them into hard decisions. A team that respects their leader but does not feel connected to them will not bring their full effort to the work. You need both. The question is not which to choose, but which to lead with, and when.</p>
+
+    <p>The answer is almost always to lead with connection. Build the relationship first. Make decisions in ways the team can see are thoughtful. Invest in understanding what people care about. That foundation of connection is what allows you to make hard calls without losing the room. When a difficult decision arrives and you make it firmly, a team that already trusts you will give you the benefit of the doubt. A team that does not already trust you will see the same decision as evidence that you do not care about them.</p>
+
+    <p>The mistake is thinking the love and the respect are separate events. They are not. A team that watches their leader make a genuinely hard decision, done with care and explained well, often comes away with more of both. The crisis is an opportunity, not a cost, if the foundation is already there.</p>
+
+    <div class="warning-box">
+      <p><strong>The prevention mindset:</strong> The best leaders almost never face this dilemma at its sharpest, because they have done enough work in advance. They have talked to stakeholders before the meeting, understood the range of positions, shaped the conditions for the decision, and brought information into the room that reframes the choice. The dilemma between love and respect tends to arrive hardest when the leader has not prepared enough and is forced to make a decision without that groundwork.</p>
+    </div>
+
+    <div class="tech-box">
+      <span class="tech-box-label">How technology helps</span>
+      <p>Pulse survey tools allow leaders to take the temperature of a team regularly, not just in the aftermath of a difficult decision. When you know, through consistent anonymous check-ins, how the team is feeling about direction, about communication, and about their relationship with leadership, you can act on signals before they become problems. A drop in sentiment after a hard decision is normal: the question is whether the baseline was high enough to absorb it, and whether the recovery happens. Technology makes that arc visible, so the leader is responding to data rather than impressions.</p>
+    </div>
+
+    <h2 id="s6"><span class="dilemma-num">Dilemma 6</span>You vs. The Most Experienced Person in the Room</h2>
+
+    <p>High performers are uncomfortable to manage. They know more than you in certain areas, they move faster than the group's average, and if they sense they are being managed down rather than leveraged well, they disengage in ways that can pull the whole team's energy with them.</p>
+
+    <p>The instinct to keep them at arm's length is understandable but costly. A high performer who is excluded from influence does not quietly comply: they either leave, or they become a quiet source of resistance. Either outcome is worse than the discomfort of having them close.</p>
+
+    <p>The better approach is to build what might be called a structured freedom zone. The leader identifies the areas where the high performer's expertise is strongest and gives them genuine ownership there: not symbolic autonomy, but real decision authority within a defined scope. Inside that zone, they are trusted to lead. Outside it, the team's norms apply to them as to everyone else. The leader maintains visibility into the zone without crowding it.</p>
+
+    <p>This arrangement works because it meets the high performer's core need, which is not control over everything but meaningful contribution to something. When that need is met through a legitimate structure, they become a reference point for the team rather than a source of friction, which is what they are capable of being at their best.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">How technology helps</span>
+      <p>Performance analytics and skills-mapping tools give leaders a clearer picture of where each team member's strengths actually sit, rather than relying on impressions or seniority. For high performers, this data helps the leader define the structured freedom zone more precisely: what tasks, what scope, what level of autonomy. It also makes the arrangement visible and objective. When a high performer knows their zone is defined by demonstrated capability rather than the leader's personal comfort, the structure feels fair rather than arbitrary. Shared project platforms make the output within that zone visible to the whole team, which reinforces the high performer's role as a reference rather than a rival.</p>
+    </div>
+
+    <div class="section-divider">· · ·</div>
+
+    <h3 id="s7">What these dilemmas have in common</h3>
+
+    <p>Each of the six dilemmas above is a version of the same underlying challenge: leadership requires holding two legitimate priorities in tension and acting without a formula to resolve them. The matrix helps with the first dilemma. Principled confidentiality helps with the second. Translation helps with the third. But in each case, the tool only works if the judgment is already there.</p>
+
+    <p>What technology adds to this picture is not resolution: no tool decides whether to push a decision or protect a relationship. What it adds is clarity. Better data about team sentiment, better visibility into delegation and progress, better structures for communication layers, better maps of where each person's capabilities are strongest. All of that reduces the amount the leader has to guess, which means the judgment they do apply lands on more accurate ground.</p>
+
+    <p>The leader who develops both sides of that equation, the human judgment and the information to apply it well, is the one who navigates these dilemmas most consistently. Not because the dilemmas become easier, but because the leader becomes more prepared for them.</p>
+
+  </article>
+
+  <aside>
+    <nav class="toc" id="toc">
+      <span class="toc-label">Dilemmas</span>
+      <a href="#s1">Decisions vs. Relationships</a>
+      <a href="#s2">Transparency vs. Confidentiality</a>
+      <a href="#s3">Team Will vs. Upper Decisions</a>
+      <a href="#s4">Controlling vs. Delegating</a>
+      <a href="#s5">Respected vs. Loved</a>
+      <a href="#s6">You vs. Most Experienced</a>
+      <a href="#s7">What They Have in Common</a>
+    </nav>
+  </aside>
+</div>
+
+<script>
+const fill = document.getElementById('progress-fill');
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  fill.style.width = Math.min(100, (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100) + '%';
+});
+
+const headings = document.querySelectorAll('article h2[id], article h3[id]');
+const tocLinks = document.querySelectorAll('.toc a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector('.toc a[href="#' + entry.target.id + '"]');
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+headings.forEach(h => observer.observe(h));
+</script>
+</body>
+</html>
