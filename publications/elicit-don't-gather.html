@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Elicit, Don't Gather: Moses Arzomanian</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* === RESET & VARIABLES === */
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#142D47; --rust:#E07A5F; --warm:#F7F5F2;
+  --page:#FAFAF8; --white:#FFFFFF; --border:#E2DED9;
+  --muted:#7A756F; --navy:#3D5A80; --text:#2C3B4A; --gold:#C9962D;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--page);-webkit-font-smoothing:antialiased;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+
+/* === PROGRESS BAR === */
+#progress-bar{position:fixed;top:52px;left:0;right:0;height:3px;background:var(--border);z-index:99;}
+#progress-fill{height:100%;width:0%;background:var(--rust);transition:width 0.1s linear;}
+
+/* === NAV === */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:52px;background:#3D5A80;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:rgba(255,255,255,0.9);letter-spacing:0.5px;}
+.nav-back{font-size:12px;color:rgba(255,255,255,0.8);font-weight:500;letter-spacing:0.3px;display:flex;align-items:center;gap:6px;transition:color 0.2s;}
+.nav-back:hover{color:white;}
+
+/* === HERO === */
+.article-hero{background:#142D47;padding:108px 80px 72px;}
+.article-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:24px;}
+.article-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.2vw,3.6rem);font-weight:400;color:#FFFFFF;line-height:1.05;letter-spacing:-1px;margin-bottom:16px;text-wrap:balance;}
+.article-subtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,1.6vw,1.25rem);font-weight:300;font-style:italic;color:rgba(255,255,255,0.5);margin-bottom:32px;line-height:1.5;}
+.article-meta{display:flex;align-items:center;gap:0;flex-wrap:wrap;}
+.article-byline{font-size:13px;color:rgba(255,255,255,0.8);font-weight:500;}
+.meta-dot{color:rgba(255,255,255,0.25);margin:0 12px;font-size:12px;}
+.article-date{font-size:12px;color:rgba(255,255,255,0.45);}
+.article-readtime{font-size:12px;color:rgba(255,255,255,0.4);}
+
+/* === TWO-COLUMN LAYOUT === */
+.article-wrap{
+  padding:64px 80px 96px;
+  display:grid;
+  grid-template-columns:1fr 240px;
+  gap:80px;
+  align-items:stretch;
+}
+aside{position:relative;}
+
+/* === TOC SIDEBAR === */
+.toc{
+  position:sticky;top:80px;
+  padding:24px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:3px solid var(--rust);
+  max-height:calc(100vh - 100px);
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--border) transparent;
+}
+.toc::-webkit-scrollbar{width:4px;}
+.toc::-webkit-scrollbar-track{background:transparent;}
+.toc::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.toc-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rust);margin-bottom:16px;display:block;}
+.toc a{display:block;font-size:12px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.4;transition:color 0.15s;}
+.toc a:last-child{border-bottom:none;}
+.toc a:hover{color:var(--ink);}
+.toc a.active{color:var(--rust);font-weight:500;}
+
+/* === ARTICLE BODY === */
+article{min-width:0;}
+article h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.2vw,2rem);font-weight:500;color:var(--ink);margin:56px 0 20px;line-height:1.15;}
+article p{font-size:16px;line-height:1.85;color:var(--text);margin-bottom:22px;}
+
+/* Drop cap on first paragraph */
+.intro-p::first-letter{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4.2rem;font-weight:500;color:var(--rust);
+  float:left;line-height:0.85;margin-right:8px;margin-top:6px;
+}
+
+/* Pull quote */
+.pullquote{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:32px 0;margin:48px 0;text-align:center;position:relative;
+}
+.pullquote::before{
+  content:'\201C';font-family:'Cormorant Garamond',serif;
+  font-size:6rem;color:var(--rust);opacity:0.3;
+  position:absolute;top:-20px;left:50%;transform:translateX(-50%);
+  line-height:1;
+}
+.pullquote p{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,1.8vw,1.5rem);font-style:italic;color:var(--ink);line-height:1.4;font-weight:300;margin:0;}
+
+/* Course quote boxes */
+.tech-box{
+  background:rgba(61,90,128,0.06);border-left:3px solid var(--navy);
+  padding:20px 24px;margin:28px 0;border-radius:0 4px 4px 0;
+}
+.tech-box p{font-size:15px;color:var(--text);font-style:italic;margin:0;line-height:1.7;}
+
+/* Warning / emphasis boxes */
+.warning-box{
+  background:rgba(224,122,95,0.06);border-left:3px solid var(--rust);
+  padding:20px 24px;margin:28px 0;border-radius:0 4px 4px 0;
+}
+.warning-box p{font-size:15px;color:var(--text);font-style:italic;margin:0;line-height:1.7;}
+
+/* Closing reference note */
+.closing-note{
+  border-top:1px solid var(--border);
+  padding-top:32px;margin-top:64px;
+}
+.closing-note .ref-heading{
+  font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--rust);margin-bottom:14px;display:block;font-style:normal;
+}
+.closing-note p{font-size:13px;color:var(--muted);font-style:italic;line-height:1.7;}
+.closing-note a{color:var(--navy);text-decoration:underline;font-style:normal;}
+
+/* === RESPONSIVE === */
+@media(max-width:900px){
+  .article-wrap{grid-template-columns:1fr;padding:48px 32px 80px;}
+  .article-hero{padding:80px 32px 48px;}
+  .nav-inner{padding:0 24px;}
+  .toc{position:static;order:-1;max-height:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="https://moses-arzomanian.github.io/">Moses Arzomanian</a>
+    <a class="nav-back" href="https://moses-arzomanian.github.io/#publications">&#8592; Back to Portfolio</a>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="article-eyebrow">Learning &amp; Development · Systems Thinking · Technology</div>
+  <h1 class="article-title">Elicit, Don't Gather</h1>
+  <p class="article-subtitle">How requirements thinking reshaped the way I design for learners, and the technology built to serve them.</p>
+  <div class="article-meta">
+    <span class="article-byline">Moses Arzomanian</span>
+    <span class="meta-dot">·</span>
+    <span class="article-date">May 2026</span>
+    <span class="meta-dot">·</span>
+    <span class="article-readtime">7 min read</span>
+  </div>
+</header>
+
+<div class="article-wrap">
+  <article>
+
+    <h2 id="question-behind">The Question Behind the Question</h2>
+
+    <p class="intro-p">At AYF Canada, participants arrived at every program with clear requests. More free time. Different activities. Looser schedules, or tighter ones. My first instinct was always to listen and respond, to take the ask at face value and design accordingly. The programs built that way were fine. They ran smoothly. People left satisfied. But they rarely left changed. The programs that actually did something, that built real cohesion, that developed leaders who showed up differently six months later, came from a different process. They came from asking why.</p>
+
+    <p>What did they actually need versus what they were describing? What problem were they trying to solve when they asked for more free time? Was it disengagement with the current structure, or something else, a need for autonomy, for trust, for space to process what they were learning? That gap between what people say they want and what they actually need is not a communication problem. It is a design problem. And I did not have formal language for it until I worked through the University of Alberta's Software Product Management Specialization.</p>
+
+    <p>One course in that program, Client Needs and Software Requirements, drew a line I have not been able to unsee since. The line was between eliciting requirements and gathering them. Gathering is passive: you ask the client what they want, they tell you, and you build it. Eliciting is investigative and collaborative: you engage in discussion, ask open-ended questions, probe the why behind the what, and work together toward a shared understanding of the real problem. The course put it plainly. Gathering puts the development team in a reactive process. Eliciting ensures both sides are building toward the same thing from the start.</p>
+
+    <p>That distinction is not a software concept. It is a design principle. And it belongs just as fully in learning and development as it does in product management.</p>
+
+    <div class="pullquote"><p>The goal is not to build what people say they want. The goal is to understand the problem well enough that the right solution becomes obvious.</p></div>
+
+    <h2 id="wants-to-needs">From Wants to Needs: A Framework for Both Worlds</h2>
+
+    <p>The course defines a requirement as a specific description of a client's needs that can be used to create a real-world product. That definition is quietly radical. It places the requirement in the space between what someone articulates and what they actually need, and it tasks the designer, whether a software product manager or a learning consultant, with bridging that gap responsibly.</p>
+
+    <p>The framework the course introduces for doing this work maps almost precisely onto how rigorous learning design operates. The five requirements activities, eliciting, expressing, prioritizing, analyzing, and managing, are not software-specific processes. They are design-thinking steps dressed in technical language. Eliciting parallels the needs analysis phase in instructional design. Expressing requirements mirrors the translation of learner needs into measurable objectives and curriculum structure. Prioritizing aligns with scoping a learning program to what will actually move the needle, not everything that could possibly be covered. Analyzing and managing requirements reflect the continuous review and iteration that separate a living program from a static one.</p>
+
+    <p>In the Agile framework covered in the course, requirements are captured through user stories: structured, first-person statements that follow the format "As a [who], I want to [what], so that [why]." The discipline of this format is instructive. It forces the designer to specify the user's role, the concrete action they want to take, and the outcome they are trying to achieve. Drop any one of those three, and you have created an ambiguous requirement that will be interpreted differently by every person who reads it. The same is true in learning design. A learning objective that does not specify who it is for, what behavior it is targeting, and why that behavior matters is not an objective. It is a wish.</p>
+
+    <div class="tech-box"><p>"User stories are useful as they provide a clear and structured way to express a requirement that does not use too many technical details. Unlike freely formed requirements, user stories ensure the 'who,' 'what,' and 'why' of a requirement are always accounted for." &mdash; Client Needs and Software Requirements, University of Alberta, 2015.</p></div>
+
+    <h2 id="scope-sacred">Scope Is Sacred</h2>
+
+    <p>One of the most practically useful ideas in the course is scope creep, the phenomenon where a project expands beyond its original purpose through an accumulation of small, well-intentioned additions. In software development, scope creep is primarily a financial and timeline risk. In learning design, it is an instructional risk with direct consequences for the learner.</p>
+
+    <p>A leadership program that begins as a two-day experience in group decision-making does not become more valuable by appending modules on communication styles, conflict resolution, personal branding, and time management. It becomes incoherent. The learner loses the thread. The sponsor loses confidence. And the facilitator spends the entire program in triage, trying to connect pieces that were never designed to connect.</p>
+
+    <div class="warning-box"><p>A learning experience without a defined scope is not comprehensive. It is unfocused. And the learner always pays the price for design decisions that were made without them in the room.</p></div>
+
+    <p>The course's remedy for scope creep is both structural and conversational. Structurally, it involves defining what the product will and will not include, drawing a clear boundary from the start. Conversationally, it means building that boundary with the client through continuous discussion and revisitation, not simply handing it down as a finished document. The client, or in L&D terms the stakeholder, needs to have been part of the scoping process in order to respect the scope later. This is not a soft suggestion. It is a project management discipline that applies equally to an LMS rollout and a forty-person onboarding program.</p>
+
+    <h2 id="technology-needs">Technology in Service of Real Needs</h2>
+
+    <p>The place where requirements thinking became most tangible in my own practice was in the development of a Custom-Built RAG Platform. The platform's purpose is to give learners and facilitators access to curated, contextualized knowledge in a way that responds to what they are actually asking, rather than delivering pre-packaged content at them in a predetermined sequence.</p>
+
+    <p>Building it required a complete requirements pass. Who were the users? What did they need to accomplish? What would count as success, and how would we know when a session had served the learner rather than simply delivering information at them? User stories became the design tool. As a facilitator, I want to surface relevant materials during a session so that I can respond to what learners are actually asking about in the moment. That single sentence carries the entire logic of learner-centered design. It names the user, the action, and the purpose. It is also a constraint: the platform should not require learners to search through a library. It should respond to them.</p>
+
+    <p>What the course made clear is that technology does not solve needs. It fulfills requirements that have already been correctly defined. A platform built on a vague or incorrectly elicited need will fail regardless of how sophisticated the underlying architecture is. The organizations that deploy learning technology and then wonder why adoption is low almost always have the same problem at their root: they gathered requirements when they should have elicited them. Someone asked stakeholders what they wanted, received an answer, and built it. The result was technically functional and organizationally useless.</p>
+
+    <p>The reverse is also true. When the requirements process is right, technology becomes a genuine accelerant. It extends reach, reduces friction, and creates the conditions for learning to happen closer to the moment of need. But technology earns that role by serving a well-defined purpose. It does not create purpose on its own.</p>
+
+    <h2 id="through-line">The Through-Line: Systems Thinking</h2>
+
+    <p>I have always understood my work through the lens of systems. What I build should keep working after I have left the room. The program should sustain itself. The platform should continue to serve the learner. The structure should outlast the person who designed it. That orientation is what drew me to learning design in the first place, and it is what connects a software product management course to everything I do in L&D.</p>
+
+    <p>Requirements thinking is, at its core, a systems discipline. It asks what this needs to do, for whom, under what conditions, and how we will know it is working. Those are not software questions. They are design questions. And they are the most important questions in any learning initiative, from a new employee onboarding journey to a platform designed to make knowledge accessible at scale.</p>
+
+    <p>The University of Alberta course gave me a language and a rigour I had been developing informally for years. It named the gap between gathering and eliciting. It gave structure to the move from a stakeholder's stated want to a learner's actual need. It made the case, in the precise vocabulary of product management, for why scope, iteration, and continuous analysis are not bureaucratic overhead. They are the discipline that separates learning experiences that change something from ones that simply happen.</p>
+
+    <p>Building lasting systems requires knowing what you are building and why, before you build anything at all. That is the lesson software has always known about learning. And it took a computing science course to make it explicit.</p>
+
+    <div class="closing-note">
+      <span class="ref-heading">Reference</span>
+      <p>University of Alberta, Department of Computing Science. "Client Needs and Software Requirements." Software Product Management Specialization, 2015. <a href="https://www.coursera.org/specializations/product-management" target="_blank">coursera.org/specializations/product-management</a>.</p>
+    </div>
+
+  </article>
+
+  <aside>
+    <nav class="toc" aria-label="Table of contents">
+      <span class="toc-label">In this article</span>
+      <a href="#question-behind">The question behind the question</a>
+      <a href="#wants-to-needs">From wants to needs</a>
+      <a href="#scope-sacred">Scope is sacred</a>
+      <a href="#technology-needs">Technology in service of real needs</a>
+      <a href="#through-line">The through-line: systems thinking</a>
+    </nav>
+  </aside>
+</div>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',function(){
+  var h=document.documentElement;
+  var pct=(h.scrollTop||document.body.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+  document.getElementById('progress-fill').style.width=pct+'%';
+});
+
+// TOC — active state + auto-scroll within sidebar
+const headings = document.querySelectorAll('article h2[id]');
+const tocLinks = document.querySelectorAll('.toc a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      tocLinks.forEach(a => a.classList.remove('active'));
+      const a = document.querySelector('.toc a[href="#' + entry.target.id + '"]');
+      if(a){
+        a.classList.add('active');
+        const toc = document.querySelector('.toc');
+        const linkTop = a.offsetTop;
+        const linkH = a.offsetHeight;
+        const tocH = toc.clientHeight;
+        const scrollTop = toc.scrollTop;
+        if(linkTop < scrollTop + 40){
+          toc.scrollTo({top: linkTop - 40, behavior:'smooth'});
+        } else if(linkTop + linkH > scrollTop + tocH - 40){
+          toc.scrollTo({top: linkTop - tocH + linkH + 40, behavior:'smooth'});
+        }
+      }
+    }
+  });
+}, {rootMargin:'-15% 0px -75% 0px'});
+headings.forEach(h => observer.observe(h));
+</script>
+</body>
+</html>
