@@ -220,11 +220,39 @@ em{font-style:italic;}
 }
 
 .closing-note{
+  margin-top:64px;
+  display:grid;
+  grid-template-columns:3px 1fr;
+  gap:0;
   border-top:1px solid var(--border);
-  padding-top:28px;
-  margin-top:56px;
+  border-bottom:1px solid var(--border);
+  padding:28px 0;
 }
-.closing-note p{font-size:13px;color:var(--muted);font-style:italic;line-height:1.7;}
+.closing-note-bar{
+  background:var(--rust);
+  border-radius:2px;
+  margin-right:24px;
+}
+.closing-note-content{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.closing-note strong{
+  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--rust);white-space:nowrap;font-weight:700;
+}
+.closing-note-cite{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-weight:400;font-style:italic;
+  color:var(--muted);line-height:1.4;
+}
+.closing-note-cite a{
+  color:var(--ink);
+  text-decoration:underline;
+  text-decoration-color:var(--rust);
+}
+.closing-note-cite a:hover{color:var(--rust);}
 
 @media(max-width:900px){
   .article-wrap{grid-template-columns:1fr;padding:48px 32px 80px;}
@@ -461,7 +489,11 @@ em{font-style:italic;}
     <p>That is my WHY. And if Sinek is right, if the WHY is where loyalty, trust, and lasting success begin, then it is also the most honest thing I can tell a team about who I am and what I am here to build with them.</p>
 
     <div class="closing-note">
-      <p>Sinek, Simon. &#8220;Start With Why: How Great Leaders Inspire Everyone to Take Action.&#8221; Portfolio/Penguin, 2009. <a href="https://simonsinek.com/books/start-with-why" target="_blank" style="color:var(--navy);text-decoration:underline;font-style:normal;">simonsinek.com/books/start-with-why</a>.</p>
+      <div class="closing-note-bar"></div>
+      <div class="closing-note-content">
+        <strong>Reference</strong>
+        <span class="closing-note-cite">Sinek, Simon. &#8220;Start With Why: How Great Leaders Inspire Everyone to Take Action.&#8221; Portfolio/Penguin, 2009. <a href="https://simonsinek.com/books/start-with-why" target="_blank" rel="noopener">simonsinek.com/books/start-with-why</a>.</span>
+      </div>
     </div>
 
   </article>
