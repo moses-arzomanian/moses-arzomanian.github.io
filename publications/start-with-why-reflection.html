@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Starting With Why, Building to Last: Moses Arzomanian</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ink:#142D47;
+  --rust:#E07A5F;
+  --warm:#F7F5F2;
+  --page:#FAFAF8;
+  --white:#FFFFFF;
+  --border:#E2DED9;
+  --muted:#7A756F;
+  --navy:#3D5A80;
+  --text:#2C3B4A;
+  --gold:#C9962D;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--page);-webkit-font-smoothing:antialiased;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+
+#progress-bar{position:fixed;top:52px;left:0;right:0;height:3px;background:var(--border);z-index:99;}
+#progress-fill{height:100%;width:0%;background:var(--rust);transition:width 0.1s linear;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:52px;background:#3D5A80;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:rgba(255,255,255,0.9);letter-spacing:0.5px;}
+.nav-back{font-size:12px;color:rgba(255,255,255,0.8);font-weight:500;letter-spacing:0.3px;display:flex;align-items:center;gap:6px;transition:color 0.2s;}
+.nav-back:hover{color:white;}
+.nav-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;}
+
+.article-hero{background:#142D47;padding:108px 80px 72px;}
+.article-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:24px;}
+.article-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,3.2vw,3.6rem);
+  font-weight:400;color:#FFFFFF;
+  line-height:1.05;letter-spacing:-1px;margin-bottom:16px;
+  text-wrap:balance;
+}
+.article-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1rem,1.6vw,1.25rem);
+  font-weight:300;font-style:italic;
+  color:rgba(255,255,255,0.5);
+  margin-bottom:32px;
+  line-height:1.5;
+}
+.article-meta{display:flex;align-items:center;gap:0;flex-wrap:wrap;}
+.article-byline{font-size:13px;color:rgba(255,255,255,0.8);font-weight:500;}
+.meta-dot{color:rgba(255,255,255,0.25);margin:0 12px;font-size:12px;}
+.article-date{font-size:12px;color:rgba(255,255,255,0.45);}
+.article-readtime{font-size:12px;color:rgba(255,255,255,0.4);}
+
+.article-wrap{
+  padding:64px 80px 96px;
+  display:grid;
+  grid-template-columns:1fr 240px;
+  gap:80px;
+  align-items:stretch;
+}
+aside{
+  position:relative;
+}
+
+.toc{
+  position:sticky;top:80px;
+  padding:24px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:3px solid var(--rust);
+  max-height:calc(100vh - 100px);
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--border) transparent;
+}
+.toc::-webkit-scrollbar{width:4px;}
+.toc::-webkit-scrollbar-track{background:transparent;}
+.toc::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.toc-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--rust);margin-bottom:16px;display:block;}
+.toc a{display:block;font-size:12px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);line-height:1.4;transition:color 0.15s;}
+.toc a:last-child{border-bottom:none;}
+.toc a:hover{color:var(--ink);}
+.toc a.active{color:var(--rust);font-weight:500;}
+
+article{min-width:0;}
+
+.intro-p{
+  font-size:17.5px;
+  line-height:1.9;
+  color:var(--text);
+  margin-bottom:28px;
+}
+.intro-p:first-child::first-letter{
+  font-family:'Cormorant Garamond',serif;
+  font-size:4.2rem;
+  font-weight:300;
+  color:var(--rust);
+  float:left;
+  line-height:0.8;
+  margin-right:10px;
+  margin-top:8px;
+}
+
+article p{
+  font-size:16px;
+  line-height:1.85;
+  color:var(--text);
+  margin-bottom:20px;
+}
+article p:last-child{margin-bottom:0;}
+
+article h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,2.2vw,1.85rem);
+  font-weight:600;
+  color:var(--ink);
+  line-height:1.25;
+  margin:48px 0 16px;
+  position:relative;
+  scroll-margin-top:72px;
+}
+article h2::before{
+  content:'';
+  display:block;
+  width:36px;height:2px;
+  background:var(--rust);
+  margin-bottom:18px;
+  opacity:0.7;
+}
+
+strong{color:var(--ink);font-weight:600;}
+em{font-style:italic;}
+
+.pullquote{
+  margin:40px -4px;
+  padding:32px 40px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-left:none;border-right:none;
+  text-align:center;position:relative;
+}
+.pullquote::before{
+  content:'\201C';
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;
+  color:var(--rust);opacity:0.3;
+  position:absolute;top:-10px;left:24px;line-height:1;
+}
+.pullquote-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.2rem,2vw,1.5rem);
+  font-style:italic;font-weight:400;
+  color:var(--ink);line-height:1.55;
+  position:relative;z-index:1;
+}
+.pullquote cite{
+  display:block;
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-style:normal;
+  margin-top:14px;
+}
+
+.tech-box{
+  margin:28px 0;
+  padding:18px 22px;
+  background:rgba(61,90,128,0.06);
+  border-left:3px solid var(--navy);
+  border-radius:0 4px 4px 0;
+}
+.tech-box-label{
+  font-size:9px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--navy);
+  display:block;margin-bottom:8px;
+}
+.tech-box p{
+  font-size:14px;
+  color:var(--text);
+  margin-bottom:0;
+  line-height:1.7;
+  font-style:italic;
+}
+
+.warning-box{
+  margin:32px 0;
+  padding:20px 24px;
+  background:rgba(224,122,95,0.06);
+  border-left:3px solid var(--rust);
+  border-radius:0 4px 4px 0;
+}
+.warning-box-label{
+  font-size:9px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--rust);
+  display:block;margin-bottom:8px;
+}
+.warning-box p{
+  font-size:14px;
+  color:var(--text);
+  margin-bottom:0;
+  line-height:1.7;
+  font-style:italic;
+}
+
+.section-divider{
+  text-align:center;
+  color:var(--muted);
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:12px;
+  margin:48px 0;
+  opacity:0.6;
+}
+
+.closing-note{
+  border-top:1px solid var(--border);
+  padding-top:28px;
+  margin-top:56px;
+}
+.closing-note p{font-size:13px;color:var(--muted);font-style:italic;line-height:1.7;}
+
+@media(max-width:900px){
+  .article-wrap{grid-template-columns:1fr;padding:48px 32px 80px;}
+  .toc{position:static;order:-1;}
+  .article-hero{padding:80px 32px 52px;}
+  .nav-inner{padding:0 24px;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"><div id="progress-fill"></div></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="https://moses-arzomanian.github.io" class="nav-logo">Moses Arzomanian</a>
+    <a href="https://moses-arzomanian.github.io" class="nav-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Portfolio
+    </a>
+  </div>
+</nav>
+
+<header class="article-hero">
+  <div class="article-eyebrow">Leadership · Learning &amp; Development · Organizational Design</div>
+  <h1 class="article-title">Starting With Why,<br/>Building to Last</h1>
+  <p class="article-subtitle">Simon Sinek asks one question that changes everything. These are my reflections on his book, and on what it revealed about how I lead, teach, and build.</p>
+  <div class="article-meta">
+    <span class="article-byline">Moses Arzomanian</span>
+    <span class="meta-dot">·</span>
+    <span class="article-date">March 2026</span>
+    <span class="meta-dot">·</span>
+    <span class="article-readtime">18 min read</span>
+  </div>
+</header>
+
+<div class="article-wrap">
+  <article>
+
+    <p class="intro-p">There is a question Simon Sinek asks early in <em>Start With Why</em> that seems almost too simple. Why do you do what you do? Not what you do, not how you do it. Why.</p>
+
+    <p>I thought I knew my answer. I work in learning and development because I believe in people's capacity to grow. I have spent years designing programs, facilitating workshops, and building structures that help others lead, communicate, and perform better. But as I moved through this book, I realized I had been answering a different question. I had been describing <em>what</em> I do, dressed up as a why.</p>
+
+    <p>The honest answer, I came to understand, is this: I am driven by the need to build systems that outlast me. Not programs that run once and are forgotten. Not workshops that feel meaningful in the room and dissolve by Monday morning. Systems. Cultures. Structures that keep working after I have left the building. That is my WHY. And this book helped me see it clearly, passage by passage, across more than two hundred pages that kept pulling me back to the same essential question.</p>
+
+    <h2 id="engineer" scroll-margin-top="72px">Engineer the outcome from the beginning</h2>
+
+    <p>One of the passages that stayed with me describes a Japanese auto plant. When something went wrong on the assembly line, the engineers did not examine the problem and accumulate data to figure out the best solution. They engineered the desired outcome from the beginning, and when they didn't achieve it, they traced the failure back to an early decision.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 14</span>
+      <p>"If they didn't achieve their desired outcome, they understood it was because of a decision they made at the start of the process."</p>
+    </div>
+
+    <p>This is the exact opposite of how most organizations approach learning. Programs are often commissioned as responses, to a complaint, a compliance requirement, a performance dip. The outcome is never quite defined. And so the evaluation at the end becomes almost meaningless, because no one agreed at the start on what success would look like.</p>
+
+    <p>Sinek pairs this with an observation that cut through me. A consultant told him that her clients were always drawn to the quicker, cheaper option over the better long-term solution. "They never have the time or money to do it right the first time," she said, "but they always have the time and money to do it again." He adds that it is not the systems that fail, it is the ability to maintain them. The system was often sound. The commitment to the long view was not. And without the WHY to anchor it, the first sign of friction becomes a reason to cut, rush, or simplify. Engineering the outcome from the beginning is not perfectionism. It is the only serious approach to building something that lasts.</p>
+
+    <h2 id="golden-circle">The Golden Circle: clarity, discipline, consistency</h2>
+
+    <p>Sinek's central framework is deceptively simple. Three concentric circles: WHY at the centre, HOW in the middle, WHAT on the outside. Most people and organizations communicate from the outside in, here is what we do, here is how we do it, and occasionally, here is why. The most inspiring leaders communicate from the inside out, starting always with WHY.</p>
+
+    <div class="pullquote">
+      <div class="pullquote-text">People don't buy WHAT you do, they buy WHY you do it.</div>
+      <cite>Sinek, p. 41</cite>
+    </div>
+
+    <p>The Golden Circle only works when three conditions are met: clarity of WHY, discipline of HOW, and consistency of WHAT. Clarity means you know, and can articulate, the belief that drives everything. Discipline means your principles and methods are genuinely aligned with that belief. Consistency means that everything visible to the outside world reflects the same core.</p>
+
+    <p>I keep returning to this as a diagnostic for organizations I work with. The WHY conversation is usually the shortest. Most leaders can name a purpose, even if roughly. The discipline conversation is harder, it asks whether the actual systems and practices are built around the stated WHY, or whether they subtly contradict it. And the consistency conversation is where the real gaps tend to appear: between what the organization says it values and what it actually rewards, tolerates, or ignores. The better question, as he puts it, is not "What should we do to compete?" It is "Why did we start doing what we are doing in the first place, and what can we do to bring our cause to life given all the technologies and opportunities available today?"</p>
+
+    <h2 id="manipulation">When WHY is absent, manipulation fills the space</h2>
+
+    <p>This is one of Sinek's sharpest observations, and one of the most uncomfortable to read as someone who has worked inside organizations.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 65</span>
+      <p>"When the WHY is absent, imbalance is produced and manipulations thrive. And when manipulations thrive, uncertainty increases for buyers, instability increases for sellers and stress increases for all."</p>
+    </div>
+
+    <p>What Sinek calls manipulations are the tactics organizations resort to when they cannot inspire: discounts, promotions, fear, social pressure, novelty. They work in the short term. They produce transactions. But they do not build loyalty, and they do not last.</p>
+
+    <p>He also makes a point about peer pressure worth sitting with. We follow the crowd not because the majority is right, but because we fear being wrong. We defer to experts not because expertise guarantees better outcomes, but because we feel safer in agreement.</p>
+
+    <div class="warning-box">
+      <span class="warning-box-label">Sinek, p. 24</span>
+      <p>"Peer pressure works not because the majority or the experts are always right, but because we fear that we may be wrong."</p>
+    </div>
+
+    <p>This dynamic plays out everywhere in organizational life, in meetings where people agree publicly and dissent privately, in decisions made by seniority rather than by evidence. Organizations that rely heavily on manipulation often do so not because their leaders are cynical, but because they have never clearly articulated what they are actually trying to build. The manipulation fills the vacuum left by the missing WHY. Clarity of purpose removes the need for most of it.</p>
+
+    <h2 id="values-verbs">Values are verbs</h2>
+
+    <p>Sinek makes a distinction that sounds small but changes everything in practice: values and guiding principles must be expressed as verbs, not nouns.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 67</span>
+      <p>"It's not 'integrity,' it's 'always do the right thing.' It's not 'innovation,' it's 'look at the problem from a different angle.' Articulating our values as verbs gives us a clear idea of how to act in any given situation."</p>
+    </div>
+
+    <p>Most organizations post their values on a wall and consider the job done. Respect. Excellence. Collaboration. These words are not wrong, they are just inert. They do not tell anyone what to do when a decision is hard, when two values are in tension, or when the easier path and the right path diverge.</p>
+
+    <p>In my work designing competency frameworks and leadership development programs, this principle has been quietly transformative. A competency that says "communicates clearly" tells you very little. One that says "adapts the message to the room, checks for understanding, and invites disagreement" tells you exactly what to practise and what to look for. The verb carries the instruction. The noun only carries the aspiration. Telling a young leader to "show integrity" is almost useless. Telling them to "name the thing in the room that no one is naming" gives them something concrete they can act on. Values live in the verb.</p>
+
+    <h2 id="authenticity">Authenticity is not optional</h2>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 69</span>
+      <p>"Being authentic is not a requirement for success, but it is if you want that success to be a lasting success. Without WHY, any attempt at authenticity will almost always be inauthentic."</p>
+    </div>
+
+    <p>The logic here is precise. Authenticity is not a personality trait, it is alignment between belief and behaviour. And you cannot have that alignment if you do not know what you believe. The WHY is not just motivational. It is the reference point against which every decision, every communication, every hire can be measured for consistency.</p>
+
+    <p>Sinek builds on this with a point that moves from authenticity into inspiration. There is a difference between behaviour that is motivated and behaviour that is inspired. Motivated behaviour comes from external pressure, from incentive, from social expectation, from urgency. Inspired behaviour comes from within, from alignment between action and identity.</p>
+
+    <div class="pullquote">
+      <div class="pullquote-text">When we are inspired, the decisions we make have more to do with who we are and less to do with the companies or the products we're buying.</div>
+      <cite>Sinek, p. 74</cite>
+    </div>
+
+    <p>This matters enormously in learning design. We spend enormous energy trying to motivate learners, to make content engaging, to gamify, to incentivize completion. But the deeper goal is inspiration: creating conditions where learning feels like an expression of who the learner is and who they want to become. That requires knowing the WHY well enough to connect the content to something that already matters to them.</p>
+
+    <h2 id="charisma">Charisma is not energy</h2>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 134</span>
+      <p>"Charisma has nothing to do with energy; it comes from a clarity of WHY. It comes from absolute conviction in an ideal bigger than oneself. Energy can excite. But only charisma can inspire. Charisma commands loyalty. Energy does not."</p>
+    </div>
+
+    <p>We tend to mistake enthusiasm for conviction, and presence for clarity. A leader who fills a room with energy can hold attention. But attention is not the same as trust, and excitement is not the same as commitment. I have been in rooms with energetic leaders who had no clear WHY, and the enthusiasm faded as soon as the meeting ended. I have also been with quieter leaders whose clarity of purpose made every word worth listening to.</p>
+
+    <p>In leadership development, this reframes what we are actually trying to develop. We coach people on presence, on delivery, on how to project confidence. These things matter. But the deeper work is helping leaders develop clarity about what they stand for, because that clarity is what produces the quality we call charisma. You cannot teach someone to inspire if they cannot yet articulate what they believe.</p>
+
+    <h2 id="culture">Culture is who you attract</h2>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 90</span>
+      <p>"It's not products or services that bind a company together. It's not size and might that make a company strong, it's the culture, the strong sense of beliefs and values that everyone, from the CEO to the receptionist, all share."</p>
+    </div>
+
+    <p>From this, Sinek's hiring logic follows directly. The goal is not to hire people who have the skill set you need. The goal is to hire people who believe what you believe, and to evaluate skill only once that alignment is confirmed. The goal is to hire people passionate for your WHY, and whose attitude fits your culture. Only then should skill and experience be weighed.</p>
+
+    <p>My years with AYF Canada were built entirely on this principle. The people who showed up, week after week, year after year, for youth leadership camps and community programs, were not there for the title or the résumé line. They were there because they believed in something. And that shared belief created a level of cohesion, resilience, and initiative that no job description or incentive structure could have produced.</p>
+
+    <div class="pullquote">
+      <div class="pullquote-text">Great companies don't hire skilled people and motivate them, they hire already motivated people and inspire them.</div>
+      <cite>Sinek, p. 94</cite>
+    </div>
+
+    <p>The role of a leader, he adds, is not to come up with all the great ideas. It is to create an environment in which great ideas can happen. That moves the leader out of the centre of the work and into the role of architect, someone whose primary job is to build conditions, not to generate outputs. In L&D, this is the difference between being the person who delivers training and being the person who builds the system that makes continuous learning possible.</p>
+
+    <h2 id="how-type">I am a HOW-type, and that is enough</h2>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 138</span>
+      <p>"For every great leader, for every WHY-type, there is an inspired HOW-type or group of HOW-types who take the intangible cause and build the infrastructure that can give it life. That infrastructure is what actually makes any measurable change or success possible."</p>
+    </div>
+
+    <p>The HOW-type is not a supporting role. It is the role through which vision becomes reality. Without the HOW-type, the WHY is just a speech. Sinek also clarifies the relationship between vision and mission, a distinction most organizations blur. The vision is the WHY: the articulation of a future that does not yet exist. The mission is the HOW: the guiding principles that will get there.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 157</span>
+      <p>"The leader must ensure that there are people on the team who believe what they believe and know HOW to build it. The HOW-types are responsible for understanding WHY and must come to work every day to develop the systems and hire the people who are ultimately responsible for bringing the WHY to life."</p>
+    </div>
+
+    <p>My work in learning and development is HOW-work at its core. I take organizational goals, develop our leaders, build a coaching culture, create accountability across teams, and I build the systems, sequences, and structures that make those goals operational. I write the curriculum, design the experience, sequence the learning, and establish the habits that allow the vision to compound over time. Knowing this is my role, and that it is a full and essential role, has changed how I describe my work.</p>
+
+    <h2 id="celery-test">The Celery Test: WHY as a decision filter</h2>
+
+    <p>One of the book's most memorable devices is the Celery Test. Imagine you are at a dinner party and several guests give you different advice about your diet, someone says eat more rice, another says quinoa, another says chocolate. At the grocery store, what do you buy? If you buy everything, no one knows what you stand for. If you buy only the celery, because it fits your philosophy, people who share that philosophy will recognize themselves in you.</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 168</span>
+      <p>"With a WHY clearly stated in an organization, anyone within the organization can make a decision as clearly and as accurately as the founder. A WHY provides the clear filter for decision-making. Any decisions, hiring, partnerships, strategies and tactics, should all pass the Celery Test."</p>
+    </div>
+
+    <p>This is the organizational benefit of a clear WHY that often goes unspoken: it scales decision-making. When the WHY is truly embedded, people closer to the work can make sound calls because they have a shared reference point. The WHY is the filter, and when the filter is clear, the organization runs on aligned judgment rather than centralized control. He adds that it is not just WHAT or HOW you do things that matters, what matters more is that WHAT and HOW you do things is consistent with your WHY.</p>
+
+    <h2 id="school-bus">The School Bus Test: outlasting the founder</h2>
+
+    <p>Sinek poses a question he calls the School Bus Test: if the founder were hit by a school bus tomorrow, would the organization survive? Would it continue to pursue the same WHY, or would it drift without the force of personality that animated it?</p>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 187</span>
+      <p>"To pass the School Bus Test, the founder's WHY must be extracted and integrated into the culture of the company. Future leaders and employees alike must be inspired by something bigger than the force of personality of the founder."</p>
+    </div>
+
+    <p>The programs I am most proud of are the ones that kept running after I left. The ones where the facilitators understood not just the content but the reason behind it. The ones where the culture had absorbed the logic well enough to adapt it when circumstances changed. The ones I am less proud of were technically well-designed but person-dependent. They worked because of my involvement, not because of the system. When I stepped back, they faded. That is a HOW-type failure: good content, insufficient embedding. The School Bus Test asks whether I am building something that works because of me, or something that works because of what I have built into it. The answer to that question changes every design decision from the beginning.</p>
+
+    <h2 id="achievement">Achievement versus success</h2>
+
+    <div class="pullquote">
+      <div class="pullquote-text">Achievement is something you reach or attain, like a goal. Success, in contrast, is a feeling or a state of being. Achievement comes when you pursue WHAT you want. Success comes when you are clear in pursuit of WHY you want it.</div>
+      <cite>Sinek, p. 181</cite>
+    </div>
+
+    <p>I have worked with organizations that had impressive achievement records, completion rates, certification numbers, engagement scores, and still felt hollow from the inside. The programs were ticking boxes, not changing anything. The metrics were real. The meaning was not. I have also seen the opposite: a modest program, under-resourced and imperfect, that produced something that lasted, a shift in how a team held each other accountable, a habit of reflection that became standard practice, a leader who carried a new way of thinking into every role afterward. That is success. Not the certificate. The change that compounds.</p>
+
+    <p>He adds that value is a feeling, not a calculation, it is perception. A program that people feel has changed them will be remembered and recommended. A program that scores highly on a feedback form but produces no feeling of transformation will be forgotten. We can measure satisfaction. We cannot directly measure value. And confusing the two leads to programs optimized for the wrong thing. He also notes: "Passion may need structure to survive, but for structure to grow, it needs passion." The two are not in opposition. The lasting programs I have been part of building were always both, rigorous enough to be trusted, alive enough to be meaningful.</p>
+
+    <h2 id="competing">Compete against yourself</h2>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 223</span>
+      <p>"When you compete against everyone else, no one wants to help you. But when you compete against yourself, everyone wants to help you."</p>
+    </div>
+
+    <p>Organizations, and individuals, that define themselves by comparison to competitors are always at the mercy of what their competitors do. Their strategy is reactive. Their identity is borrowed. Because they are focused outward, they cannot build the kind of internal culture that produces lasting strength. The better question is not "What should we do to compete?" It is "Why did we start doing what we are doing in the first place, and what can we do to bring our cause to life given all the technologies and opportunities available today?" The WHY is the constant. The HOW and the WHAT evolve around it. When the WHY is clear, there is no need to imitate. You simply become more fully what you already are.</p>
+
+    <h2 id="leadership">Leadership requires two things</h2>
+
+    <div class="tech-box">
+      <span class="tech-box-label">Sinek, p. 228</span>
+      <p>"Leadership requires two things: a vision of the world that does not yet exist and the ability to communicate it."</p>
+    </div>
+
+    <p>Not authority. Not seniority. Not expertise or tenure or title. A vision, and the ability to communicate it in a way that brings others into it willingly. He is precise about what a follower is: someone who volunteers to go where you are going. Not because they have to. Not because they were incentivized or threatened. Because they want to.</p>
+
+    <div class="pullquote">
+      <div class="pullquote-text">You can run a company, you can manage an organization, but you can lead only people.</div>
+      <cite>Sinek, p. 226</cite>
+    </div>
+
+    <p>In leadership development, I have found that the vision half is rarely the problem. Most leaders can articulate where they want to go. The communication half is where things break down, not because leaders are inarticulate, but because they skip the WHY when they speak. They describe the WHAT and the HOW in detail, and wonder why no one is moved. Sinek's framework is, at its core, a communication framework. Start with why. Let people understand the belief before they encounter the plan. The plan changes. The belief is what they follow.</p>
+
+    <h2 id="my-why">My WHY</h2>
+
+    <p>By the time I finished this book, I had a clearer answer to the question I started with. I am not in learning and development because I like designing workshops or facilitating groups, though I do. I am here because I believe the most important thing any organization can invest in is a system that develops its people, a system that makes good judgment, honest communication, and continuous growth the default, not the exception.</p>
+
+    <p>I want to build things that keep working. Programs that embed rather than evaporate. Cultures that develop leaders even when no one is running a formal program. Frameworks that a team can use to make better decisions long after the consultant has left the building.</p>
+
+    <p>Sinek's book did not give me this WHY. But it gave me the language for it, the permission to call it the centre rather than the context, and a framework for testing whether everything I do is genuinely aligned with it. That is what the best books do, they do not hand you a destination, they help you recognize where you were already headed.</p>
+
+    <p>That is my WHY. And if Sinek is right, if the WHY is where loyalty, trust, and lasting success begin, then it is also the most honest thing I can tell a team about who I am and what I am here to build with them.</p>
+
+    <div class="closing-note">
+      <p>Sinek, Simon. &#8220;Start With Why: How Great Leaders Inspire Everyone to Take Action.&#8221; Portfolio/Penguin, 2009. <a href="https://simonsinek.com/books/start-with-why" target="_blank" style="color:var(--navy);text-decoration:underline;font-style:normal;">simonsinek.com/books/start-with-why</a>.</p>
+    </div>
+
+  </article>
+
+  <aside>
+    <nav class="toc" aria-label="Table of contents">
+      <span class="toc-label">In this article</span>
+      <a href="#engineer">Engineer the outcome</a>
+      <a href="#golden-circle">The Golden Circle</a>
+      <a href="#manipulation">When WHY is absent</a>
+      <a href="#values-verbs">Values are verbs</a>
+      <a href="#authenticity">Authenticity</a>
+      <a href="#charisma">Charisma vs. energy</a>
+      <a href="#culture">Culture is who you attract</a>
+      <a href="#how-type">I am a HOW-type</a>
+      <a href="#celery-test">The Celery Test</a>
+      <a href="#school-bus">The School Bus Test</a>
+      <a href="#achievement">Achievement vs. success</a>
+      <a href="#competing">Compete against yourself</a>
+      <a href="#leadership">Leadership requires two things</a>
+      <a href="#my-why">My WHY</a>
+    </nav>
+  </aside>
+</div>
+
+<script>
+const fill = document.getElementById('progress-fill');
+window.addEventListener('scroll', function(){
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  fill.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+});
+
+const headings = document.querySelectorAll('article h2[id]');
+const tocLinks = document.querySelectorAll('.toc a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      tocLinks.forEach(a => a.classList.remove('active'));
+      const a = document.querySelector('.toc a[href="#' + entry.target.id + '"]');
+      if(a){
+        a.classList.add('active');
+        const toc = document.querySelector('.toc');
+        const linkTop = a.offsetTop;
+        const linkH = a.offsetHeight;
+        const tocH = toc.clientHeight;
+        const scrollTop = toc.scrollTop;
+        if(linkTop < scrollTop + 40){
+          toc.scrollTo({top: linkTop - 40, behavior:'smooth'});
+        } else if(linkTop + linkH > scrollTop + tocH - 40){
+          toc.scrollTo({top: linkTop - tocH + linkH + 40, behavior:'smooth'});
+        }
+      }
+    }
+  });
+}, {rootMargin:'-15% 0px -75% 0px'});
+headings.forEach(h => observer.observe(h));
+</script>
+</body>
+</html>
